@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CarbMind | كارب مايند</title>
   <meta name="description" content="كارب مايند يرتّب لخبطة البداية بعد تشخيص السكري: الكارب، المعامل، والأرقام." />
+  <meta name="theme-color" content="#7b6ef6" />
+
+  <link rel="manifest" href="manifest.json">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -397,9 +400,7 @@
         </div>
       </section>
 
-      <div class="section-end">
-
-      </div>
+      <div class="section-end"></div>
 
     </div>
   </div>
@@ -417,6 +418,14 @@
     }
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
+  </script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js");
+      });
+    }
   </script>
 </body>
 </html>
