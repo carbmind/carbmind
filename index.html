@@ -12,20 +12,21 @@
 
   <style>
     :root{
-      --bg:#F7FAF9;
-      --surface:#FFFFFF;
-      --surface-soft:#F1FBF6;
-      --text:#102132;
-      --muted:#617487;
-      --primary:#3BCF8E;
-      --primary-dark:#27B877;
-      --primary-soft:#E6F7F0;
-      --stroke:#E5EFEB;
-      --shadow:0 14px 34px rgba(16,33,50,.08);
-      --shadow-hover:0 20px 40px rgba(16,33,50,.12);
-      --radius-xl:28px;
-      --radius-lg:22px;
-      --radius-md:18px;
+      --bg:#eef6f2;
+      --bg-soft:#f7fbf9;
+      --surface:#ffffff;
+      --surface-2:#f5fbf8;
+      --text:#0f2333;
+      --muted:#657789;
+      --line:#dcebe4;
+      --primary:#38c98a;
+      --primary-dark:#21b270;
+      --primary-soft:#e8f8f0;
+      --shadow:0 16px 40px rgba(14,35,51,.08);
+      --shadow-strong:0 22px 50px rgba(14,35,51,.12);
+      --radius-xl:34px;
+      --radius-lg:26px;
+      --radius-md:20px;
     }
 
     *{
@@ -40,103 +41,135 @@
     body{
       margin:0;
       font-family:'Tajawal', sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(59,207,142,.08), transparent 24%),
-        radial-gradient(circle at top right, rgba(59,207,142,.06), transparent 20%),
-        var(--bg);
       color:var(--text);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(56,201,138,.16), transparent 22%),
+        radial-gradient(circle at 88% 8%, rgba(56,201,138,.12), transparent 18%),
+        radial-gradient(circle at 50% 100%, rgba(56,201,138,.08), transparent 25%),
+        linear-gradient(180deg, #f7fbf9 0%, #eff7f3 100%);
+      min-height:100vh;
     }
 
-    .container{
-      width:min(100% - 28px, 1080px);
+    .page{
+      width:min(100% - 24px, 980px);
       margin-inline:auto;
+      padding:22px 0 40px;
+    }
+
+    .app-shell{
+      background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.96));
+      border:1px solid rgba(220,235,228,.95);
+      border-radius:42px;
+      box-shadow:0 30px 80px rgba(14,35,51,.08);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .app-shell::before{
+      content:"";
+      position:absolute;
+      inset:-80px auto auto -80px;
+      width:220px;
+      height:220px;
+      background:radial-gradient(circle, rgba(56,201,138,.14), transparent 70%);
+      pointer-events:none;
+    }
+
+    .app-shell::after{
+      content:"";
+      position:absolute;
+      inset:auto -80px -80px auto;
+      width:220px;
+      height:220px;
+      background:radial-gradient(circle, rgba(56,201,138,.10), transparent 70%);
+      pointer-events:none;
     }
 
     .hero{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:54px 0 42px;
-    }
-
-    .hero-inner{
-      width:100%;
+      padding:34px 22px 26px;
       text-align:center;
+      position:relative;
+      background:
+        radial-gradient(circle at top, rgba(56,201,138,.10), transparent 38%),
+        linear-gradient(180deg, #f9fcfb 0%, #f4fbf7 100%);
     }
 
-    /* Logo */
     .brand-wrap{
-      margin-top:18px;
-      margin-bottom:30px;
       display:flex;
       justify-content:center;
+      margin-bottom:26px;
     }
 
     .brand{
       display:inline-flex;
       align-items:center;
-      gap:12px;
+      gap:14px;
       direction:ltr;
-      background:var(--surface);
-      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, #ffffff 0%, #f8fcfa 100%);
+      border:1px solid var(--line);
       border-radius:999px;
-      padding:14px 22px;
+      padding:12px 20px;
       box-shadow:var(--shadow);
     }
 
-    .brand-icon{
-      width:42px;
-      height:42px;
-      border-radius:50%;
+    .brand-badge{
+      display:flex;
+      align-items:center;
+      gap:6px;
       background:var(--primary-soft);
-      display:grid;
-      place-items:center;
-      border:1px solid rgba(59,207,142,.22);
-      animation:brainPulse 3s ease-in-out infinite;
-      flex-shrink:0;
+      border:1px solid rgba(56,201,138,.22);
+      border-radius:999px;
+      padding:9px 12px;
+      line-height:1;
     }
 
-    .brand-icon svg{
-      width:24px;
-      height:24px;
-      display:block;
+    .brand-badge .brain,
+    .brand-badge .wheat{
+      font-size:20px;
+      display:inline-block;
+    }
+
+    .brand-badge .brain{
+      animation:brainFloat 2.8s ease-in-out infinite;
+    }
+
+    .brand-badge .wheat{
+      animation:wheatFloat 2.8s ease-in-out infinite;
+      animation-delay:.25s;
+    }
+
+    @keyframes brainFloat{
+      0%,100%{transform:translateY(0) rotate(0deg);}
+      50%{transform:translateY(-2px) rotate(-4deg);}
+    }
+
+    @keyframes wheatFloat{
+      0%,100%{transform:translateY(0) rotate(0deg);}
+      50%{transform:translateY(-2px) rotate(5deg);}
     }
 
     .brand-name{
       font-family:'Alexandria', sans-serif;
       font-size:28px;
       font-weight:800;
-      letter-spacing:.2px;
       color:var(--text);
+      letter-spacing:.2px;
     }
 
-    @keyframes brainPulse{
-      0%,100%{
-        transform:translateY(0) scale(1);
-        box-shadow:0 0 0 rgba(59,207,142,0);
-      }
-      50%{
-        transform:translateY(-1px) scale(1.04);
-        box-shadow:0 0 18px rgba(59,207,142,.22);
-      }
-    }
-
-    /* Hero copy */
     .hook{
       max-width:760px;
-      margin:0 auto 18px;
+      margin:0 auto 16px;
       font-family:'Alexandria', sans-serif;
-      font-size:clamp(34px, 7vw, 62px);
+      font-size:clamp(34px, 7vw, 60px);
+      line-height:1.18;
       font-weight:800;
-      line-height:1.2;
       letter-spacing:-0.8px;
     }
 
     .subcopy{
-      max-width:700px;
-      margin:0 auto 28px;
-      font-size:clamp(19px, 2.7vw, 28px);
+      max-width:720px;
+      margin:0 auto 24px;
+      font-size:clamp(20px, 2.7vw, 28px);
       line-height:1.9;
       color:var(--muted);
       font-weight:500;
@@ -150,7 +183,7 @@
     .cta-wrap{
       display:flex;
       justify-content:center;
-      margin-bottom:18px;
+      margin-bottom:12px;
     }
 
     .cta{
@@ -160,47 +193,47 @@
       min-width:220px;
       padding:17px 28px;
       border-radius:18px;
-      background:linear-gradient(180deg, #57dca0 0%, #3BCF8E 100%);
-      color:#fff;
+      background:linear-gradient(180deg, #59d79c 0%, var(--primary) 100%);
+      color:#ffffff;
       text-decoration:none;
       font-size:24px;
       font-weight:800;
-      box-shadow:0 14px 28px rgba(59,207,142,.22);
+      box-shadow:0 16px 32px rgba(56,201,138,.25);
       transition:.25s ease;
     }
 
     .cta:hover{
       transform:translateY(-3px);
-      box-shadow:0 18px 34px rgba(59,207,142,.28);
-      background:linear-gradient(180deg, #60e0a7 0%, #35c986 100%);
+      box-shadow:0 20px 38px rgba(56,201,138,.32);
+      background:linear-gradient(180deg, #62dca2 0%, #31c381 100%);
     }
 
     .mini-note{
-      color:#8A9AA9;
-      font-size:18px;
       margin:0;
+      color:#8b9baa;
+      font-size:18px;
     }
 
-    /* Cards */
     .cards-section{
-      padding:6px 0 54px;
+      padding:18px 16px 18px;
+      background:linear-gradient(180deg, rgba(245,251,248,.84), rgba(250,253,251,.95));
     }
 
     .cards{
       display:grid;
       grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:18px;
+      gap:16px;
     }
 
     .card{
-      background:var(--surface);
-      border:1px solid var(--stroke);
-      border-radius:var(--radius-xl);
-      padding:24px 22px;
+      background:linear-gradient(180deg, #ffffff 0%, #fbfdfc 100%);
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:22px 18px;
       box-shadow:var(--shadow);
       transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
       opacity:0;
-      transform:translateY(34px);
+      transform:translateY(26px);
     }
 
     .card.active{
@@ -209,24 +242,24 @@
     }
 
     .card:hover{
-      transform:translateY(-6px);
-      box-shadow:var(--shadow-hover);
-      border-color:rgba(59,207,142,.26);
+      transform:translateY(-7px) scale(1.01);
+      box-shadow:var(--shadow-strong);
+      border-color:rgba(56,201,138,.26);
     }
 
     .card-top{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
-      gap:16px;
+      gap:14px;
       margin-bottom:14px;
     }
 
     .card h3{
       margin:0;
       font-family:'Alexandria', sans-serif;
-      font-size:28px;
-      line-height:1.25;
+      font-size:26px;
+      line-height:1.2;
       font-weight:800;
       color:var(--text);
     }
@@ -234,41 +267,52 @@
     .card p{
       margin:0;
       color:var(--muted);
-      font-size:20px;
-      line-height:1.8;
+      font-size:19px;
+      line-height:1.85;
       font-weight:500;
     }
 
     .icon-badge{
-      width:62px;
-      height:62px;
-      border-radius:20px;
+      width:58px;
+      height:58px;
+      border-radius:18px;
       background:var(--primary-soft);
-      border:1px solid rgba(59,207,142,.20);
+      border:1px solid rgba(56,201,138,.18);
       display:grid;
       place-items:center;
-      font-size:28px;
+      font-size:26px;
       flex-shrink:0;
     }
 
-    /* Mobile */
-    @media (max-width: 768px){
-      .hero{
-        min-height:auto;
-        padding-top:42px;
+    .section-end{
+      padding:0 16px 20px;
+      text-align:center;
+      color:#8a99a8;
+      font-size:15px;
+      background:linear-gradient(180deg, rgba(250,253,251,.95), #ffffff 100%);
+    }
+
+    @media (max-width: 760px){
+      .page{
+        width:min(100% - 18px, 980px);
+        padding-top:14px;
       }
 
-      .brand-wrap{
-        margin-top:8px;
-        margin-bottom:26px;
+      .app-shell{
+        border-radius:32px;
+      }
+
+      .hero{
+        padding:24px 16px 22px;
       }
 
       .brand{
-        padding:13px 20px;
+        padding:11px 16px;
+        gap:12px;
       }
 
       .brand-name{
-        font-size:26px;
+        font-size:24px;
       }
 
       .hook{
@@ -290,39 +334,30 @@
       }
 
       .card{
-        padding:22px 18px;
+        border-radius:24px;
       }
 
       .card h3{
-        font-size:26px;
+        font-size:24px;
       }
 
       .card p{
-        font-size:19px;
-      }
-
-      .icon-badge{
-        width:58px;
-        height:58px;
-        font-size:26px;
+        font-size:18px;
       }
     }
   </style>
 </head>
 <body>
 
-  <section class="hero">
-    <div class="container">
-      <div class="hero-inner">
+  <div class="page">
+    <div class="app-shell">
 
+      <section class="hero">
         <div class="brand-wrap">
           <div class="brand">
-            <div class="brand-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M9 4.8C5.8 4.8 3.5 7.2 3.5 10.2c0 1.8.8 3.4 2.2 4.5-.2.8-.7 1.5-1.3 1.9.8.2 2 .1 3-.8.5.1 1 .2 1.6.2V4.8Z" stroke="#20B875" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9 7.2c1.1-1.1 2.4-1.7 3.9-1.7 3.4 0 5.9 2.4 5.9 5.6 0 1.5-.6 2.9-1.7 3.9 0 1.3.4 2.2 1 2.8-1 .2-2.3-.1-3.3-.9-.6.2-1.2.3-1.9.3-1.4 0-2.7-.4-3.8-1.1" stroke="#20B875" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M6.9 8.5c.7.2 1.1.6 1.4 1.2M6.8 11.3c.8.2 1.4.5 1.8 1.1M13 8.3c.8.2 1.4.5 1.8 1.1M13.1 11.2c.9.2 1.6.7 2 1.3" stroke="#7FE8B8" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
+            <div class="brand-badge">
+              <span class="brain">🧠</span>
+              <span class="wheat">🌾</span>
             </div>
             <div class="brand-name">CarbMind</div>
           </div>
@@ -347,63 +382,65 @@
         </div>
 
         <p class="mini-note">واضح، هادي، ومصمم للعائلات من أول يوم.</p>
+      </section>
 
+      <section id="cards" class="cards-section">
+        <div class="cards">
+
+          <div class="card reveal">
+            <div class="card-top">
+              <div class="icon-badge">📊</div>
+              <h3>السكري وأرقامه</h3>
+            </div>
+            <p>افهم قراءة السكر ومتى تكون مرتفعة أو مطمئنة.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="card-top">
+              <div class="icon-badge">🧠</div>
+              <h3>معامل الكارب</h3>
+            </div>
+            <p>خلّنا نساعدك تعرف معامل الكارب بطريقة بسيطة.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="card-top">
+              <div class="icon-badge">🍽️</div>
+              <h3>كارب الوجبة</h3>
+            </div>
+            <p>اكتب الوجبة ونحسب لك الكارب بسرعة.</p>
+          </div>
+
+          <div class="card reveal">
+            <div class="card-top">
+              <div class="icon-badge">📂</div>
+              <h3>ملفات مفيدة</h3>
+            </div>
+            <p>أدلة وملفات مرتبة تساعدك في رحلتك مع السكري.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="section-end">
+        هذه البداية… وبعدها نربط كل بطاقة بأداة فعلية داخل كارب مايند.
       </div>
+
     </div>
-  </section>
-
-  <section id="cards" class="cards-section">
-    <div class="container">
-      <div class="cards">
-
-        <div class="card reveal">
-          <div class="card-top">
-            <div class="icon-badge">📊</div>
-            <h3>السكري وأرقامه</h3>
-          </div>
-          <p>افهم قراءة السكر ومتى تكون مرتفعة أو مطمئنة.</p>
-        </div>
-
-        <div class="card reveal">
-          <div class="card-top">
-            <div class="icon-badge">🧠</div>
-            <h3>معامل الكارب</h3>
-          </div>
-          <p>خلّنا نساعدك تعرف معامل الكارب بطريقة بسيطة.</p>
-        </div>
-
-        <div class="card reveal">
-          <div class="card-top">
-            <div class="icon-badge">🍽️</div>
-            <h3>كارب الوجبة</h3>
-          </div>
-          <p>اكتب الوجبة ونحسب لك الكارب بسرعة.</p>
-        </div>
-
-        <div class="card reveal">
-          <div class="card-top">
-            <div class="icon-badge">📂</div>
-            <h3>ملفات مفيدة</h3>
-          </div>
-          <p>أدلة وملفات مرتبة تساعدك في رحلتك مع السكري.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
+  </div>
 
   <script>
-    const cards = document.querySelectorAll('.reveal');
+    const reveals = document.querySelectorAll('.reveal');
 
-    const revealOnScroll = () => {
-      cards.forEach((card, index) => {
-        const top = card.getBoundingClientRect().top;
-        const trigger = window.innerHeight - 80;
-        if (top < trigger) {
-          setTimeout(() => card.classList.add('active'), index * 90);
+    function revealOnScroll(){
+      reveals.forEach((el, index)=>{
+        const top = el.getBoundingClientRect().top;
+        const trigger = window.innerHeight - 70;
+        if(top < trigger){
+          setTimeout(()=> el.classList.add('active'), index * 90);
         }
       });
-    };
+    }
 
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
