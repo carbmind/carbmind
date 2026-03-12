@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CarbMind | كارب مايند</title>
-  <meta name="description" content="كارب مايند يساعد العائلات على فهم الكارب ببساطة بعد تشخيص السكري." />
+  <meta name="description" content="كارب مايند يساعد العائلات على ترتيب لخبطة الأكل والكارب بعد تشخيص السكري." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,18 +12,26 @@
 
   <style>
     :root{
-      --bg:#eef6f2;
-      --bg-soft:#f7fbf9;
+      --bg:#f4f2f7;
+      --bg-soft:#fbfafc;
       --surface:#ffffff;
-      --surface-2:#f5fbf8;
-      --text:#0f2333;
-      --muted:#657789;
-      --line:#dcebe4;
-      --primary:#38c98a;
-      --primary-dark:#21b270;
-      --primary-soft:#e8f8f0;
-      --shadow:0 16px 40px rgba(14,35,51,.08);
-      --shadow-strong:0 22px 50px rgba(14,35,51,.12);
+      --surface-2:#f7f5fa;
+      --text:#1a2033;
+      --muted:#7e8599;
+      --line:#ebe7f1;
+
+      --brand:#8b7cf7;
+      --brand-soft:#f1eeff;
+
+      --accent:#e2bb66;
+      --accent-soft:#fbf2dc;
+
+      --mint:#dfeee5;
+      --mint-2:#b8d4c1;
+
+      --shadow:0 14px 40px rgba(26,32,51,.08);
+      --shadow-hover:0 20px 50px rgba(26,32,51,.12);
+
       --radius-xl:34px;
       --radius-lg:26px;
       --radius-md:20px;
@@ -41,26 +49,24 @@
     body{
       margin:0;
       font-family:'Tajawal', sans-serif;
-      color:var(--text);
       background:
-        radial-gradient(circle at 12% 12%, rgba(56,201,138,.16), transparent 22%),
-        radial-gradient(circle at 88% 8%, rgba(56,201,138,.12), transparent 18%),
-        radial-gradient(circle at 50% 100%, rgba(56,201,138,.08), transparent 25%),
-        linear-gradient(180deg, #f7fbf9 0%, #eff7f3 100%);
-      min-height:100vh;
+        radial-gradient(circle at 10% 10%, rgba(139,124,247,.10), transparent 18%),
+        radial-gradient(circle at 90% 0%, rgba(226,187,102,.12), transparent 20%),
+        linear-gradient(180deg, #f8f7fb 0%, #f2f1f6 100%);
+      color:var(--text);
     }
 
     .page{
-      width:min(100% - 24px, 980px);
+      width:min(100% - 18px, 1080px);
       margin-inline:auto;
-      padding:22px 0 40px;
+      padding:18px 0 34px;
     }
 
     .app-shell{
-      background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.96));
-      border:1px solid rgba(220,235,228,.95);
+      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,246,251,.96));
+      border:1px solid var(--line);
       border-radius:42px;
-      box-shadow:0 30px 80px rgba(14,35,51,.08);
+      box-shadow:0 28px 80px rgba(26,32,51,.08);
       overflow:hidden;
       position:relative;
     }
@@ -68,84 +74,90 @@
     .app-shell::before{
       content:"";
       position:absolute;
-      inset:-80px auto auto -80px;
-      width:220px;
-      height:220px;
-      background:radial-gradient(circle, rgba(56,201,138,.14), transparent 70%);
+      width:300px;
+      height:300px;
+      top:-120px;
+      left:-100px;
+      background:radial-gradient(circle, rgba(139,124,247,.10), transparent 70%);
       pointer-events:none;
     }
 
     .app-shell::after{
       content:"";
       position:absolute;
-      inset:auto -80px -80px auto;
-      width:220px;
-      height:220px;
-      background:radial-gradient(circle, rgba(56,201,138,.10), transparent 70%);
+      width:260px;
+      height:260px;
+      bottom:-120px;
+      right:-80px;
+      background:radial-gradient(circle, rgba(226,187,102,.12), transparent 70%);
       pointer-events:none;
     }
 
     .hero{
-      padding:34px 22px 26px;
+      padding:24px 18px 28px;
       text-align:center;
       position:relative;
       background:
-        radial-gradient(circle at top, rgba(56,201,138,.10), transparent 38%),
-        linear-gradient(180deg, #f9fcfb 0%, #f4fbf7 100%);
+        radial-gradient(circle at top center, rgba(139,124,247,.08), transparent 32%),
+        linear-gradient(180deg, #fbfafc 0%, #f6f4f9 100%);
     }
 
-    .brand-wrap{
+    .top-chip{
+      width:100%;
       display:flex;
       justify-content:center;
-      margin-bottom:26px;
+      margin-bottom:18px;
     }
 
     .brand{
       display:inline-flex;
       align-items:center;
-      gap:14px;
+      gap:12px;
       direction:ltr;
-      background:linear-gradient(180deg, #ffffff 0%, #f8fcfa 100%);
+      background:var(--surface);
       border:1px solid var(--line);
       border-radius:999px;
-      padding:12px 20px;
+      padding:12px 18px;
       box-shadow:var(--shadow);
     }
 
     .brand-badge{
       display:flex;
       align-items:center;
+      justify-content:center;
       gap:6px;
-      background:var(--primary-soft);
-      border:1px solid rgba(56,201,138,.22);
+      background:var(--brand-soft);
+      border:1px solid rgba(139,124,247,.18);
       border-radius:999px;
-      padding:9px 12px;
+      padding:8px 12px;
+      min-width:62px;
+      min-height:42px;
+    }
+
+    .brain,
+    .grain{
+      display:inline-block;
+      font-size:20px;
       line-height:1;
     }
 
-    .brand-badge .brain,
-    .brand-badge .wheat{
-      font-size:20px;
-      display:inline-block;
+    .brain{
+      animation:brainFloat 3s ease-in-out infinite;
     }
 
-    .brand-badge .brain{
-      animation:brainFloat 2.8s ease-in-out infinite;
-    }
-
-    .brand-badge .wheat{
-      animation:wheatFloat 2.8s ease-in-out infinite;
+    .grain{
+      animation:grainFloat 3s ease-in-out infinite;
       animation-delay:.25s;
     }
 
     @keyframes brainFloat{
-      0%,100%{transform:translateY(0) rotate(0deg);}
-      50%{transform:translateY(-2px) rotate(-4deg);}
+      0%,100%{transform:translateY(0px) rotate(0deg);}
+      50%{transform:translateY(-2px) rotate(-5deg);}
     }
 
-    @keyframes wheatFloat{
-      0%,100%{transform:translateY(0) rotate(0deg);}
-      50%{transform:translateY(-2px) rotate(5deg);}
+    @keyframes grainFloat{
+      0%,100%{transform:translateY(0px) rotate(0deg);}
+      50%{transform:translateY(-2px) rotate(6deg);}
     }
 
     .brand-name{
@@ -156,21 +168,37 @@
       letter-spacing:.2px;
     }
 
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:18px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:var(--surface);
+      border:1px solid var(--line);
+      color:#6e7590;
+      font-size:15px;
+      font-weight:700;
+      box-shadow:0 10px 24px rgba(26,32,51,.04);
+    }
+
     .hook{
       max-width:760px;
       margin:0 auto 16px;
       font-family:'Alexandria', sans-serif;
-      font-size:clamp(34px, 7vw, 60px);
-      line-height:1.18;
+      font-size:clamp(34px, 7vw, 62px);
+      line-height:1.16;
       font-weight:800;
       letter-spacing:-0.8px;
+      color:#162033;
     }
 
     .subcopy{
       max-width:720px;
-      margin:0 auto 24px;
-      font-size:clamp(20px, 2.7vw, 28px);
-      line-height:1.9;
+      margin:0 auto 26px;
+      font-size:clamp(21px, 2.6vw, 29px);
+      line-height:1.85;
       color:var(--muted);
       font-weight:500;
     }
@@ -193,47 +221,60 @@
       min-width:220px;
       padding:17px 28px;
       border-radius:18px;
-      background:linear-gradient(180deg, #59d79c 0%, var(--primary) 100%);
-      color:#ffffff;
+      background:linear-gradient(180deg, #9a8cff 0%, #7b6ef6 100%);
+      color:#fff;
       text-decoration:none;
       font-size:24px;
       font-weight:800;
-      box-shadow:0 16px 32px rgba(56,201,138,.25);
+      box-shadow:0 16px 34px rgba(123,110,246,.24);
       transition:.25s ease;
     }
 
     .cta:hover{
       transform:translateY(-3px);
-      box-shadow:0 20px 38px rgba(56,201,138,.32);
-      background:linear-gradient(180deg, #62dca2 0%, #31c381 100%);
+      box-shadow:0 22px 40px rgba(123,110,246,.28);
+      background:linear-gradient(180deg, #a295ff 0%, #7263f0 100%);
     }
 
     .mini-note{
+      color:#98a0b3;
+      font-size:17px;
       margin:0;
-      color:#8b9baa;
-      font-size:18px;
     }
 
     .cards-section{
-      padding:18px 16px 18px;
-      background:linear-gradient(180deg, rgba(245,251,248,.84), rgba(250,253,251,.95));
+      padding:18px 16px 22px;
+      background:linear-gradient(180deg, rgba(248,246,251,.96), #f7f6fa 100%);
     }
 
     .cards{
       display:grid;
-      grid-template-columns:repeat(2, minmax(0,1fr));
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:16px;
     }
 
     .card{
-      background:linear-gradient(180deg, #ffffff 0%, #fbfdfc 100%);
+      background:linear-gradient(180deg, #ffffff 0%, #fcfbfe 100%);
       border:1px solid var(--line);
-      border-radius:28px;
+      border-radius:30px;
       padding:22px 18px;
       box-shadow:var(--shadow);
       transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
       opacity:0;
-      transform:translateY(26px);
+      transform:translateY(24px);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      width:120px;
+      height:120px;
+      left:-30px;
+      bottom:-40px;
+      background:radial-gradient(circle, rgba(139,124,247,.06), transparent 70%);
+      pointer-events:none;
     }
 
     .card.active{
@@ -242,9 +283,9 @@
     }
 
     .card:hover{
-      transform:translateY(-7px) scale(1.01);
-      box-shadow:var(--shadow-strong);
-      border-color:rgba(56,201,138,.26);
+      transform:translateY(-8px) scale(1.01);
+      box-shadow:var(--shadow-hover);
+      border-color:rgba(139,124,247,.22);
     }
 
     .card-top{
@@ -276,26 +317,40 @@
       width:58px;
       height:58px;
       border-radius:18px;
-      background:var(--primary-soft);
-      border:1px solid rgba(56,201,138,.18);
       display:grid;
       place-items:center;
-      font-size:26px;
       flex-shrink:0;
+      font-size:25px;
+      border:1px solid transparent;
+    }
+
+    .icon-purple{
+      background:var(--brand-soft);
+      border-color:rgba(139,124,247,.18);
+    }
+
+    .icon-gold{
+      background:var(--accent-soft);
+      border-color:rgba(226,187,102,.22);
+    }
+
+    .icon-mint{
+      background:#edf7f1;
+      border-color:rgba(184,212,193,.35);
     }
 
     .section-end{
-      padding:0 16px 20px;
+      padding:0 16px 24px;
       text-align:center;
-      color:#8a99a8;
+      color:#98a0b3;
       font-size:15px;
-      background:linear-gradient(180deg, rgba(250,253,251,.95), #ffffff 100%);
+      background:#f7f6fa;
     }
 
     @media (max-width: 760px){
       .page{
-        width:min(100% - 18px, 980px);
-        padding-top:14px;
+        width:min(100% - 14px, 1080px);
+        padding-top:12px;
       }
 
       .app-shell{
@@ -303,16 +358,20 @@
       }
 
       .hero{
-        padding:24px 16px 22px;
+        padding:18px 14px 24px;
       }
 
       .brand{
         padding:11px 16px;
-        gap:12px;
       }
 
       .brand-name{
-        font-size:24px;
+        font-size:25px;
+      }
+
+      .eyebrow{
+        font-size:14px;
+        padding:9px 14px;
       }
 
       .hook{
@@ -353,35 +412,36 @@
     <div class="app-shell">
 
       <section class="hero">
-        <div class="brand-wrap">
+        <div class="top-chip">
           <div class="brand">
             <div class="brand-badge">
               <span class="brain">🧠</span>
-              <span class="wheat">🌾</span>
+              <span class="grain">🌾</span>
             </div>
             <div class="brand-name">CarbMind</div>
           </div>
         </div>
 
+        <div class="eyebrow">رتّب لخبطة البداية… خطوة خطوة</div>
+
         <h1 class="hook">
-          بعد تشخيص السكري…<br>
-          الأكل ما عاد شيء عادي.
+          فجأة…<br>
+          الأكل صار سؤال.
         </h1>
 
         <p class="subcopy">
-          كل وجبة يصير معها لخبطة:
           <strong>وش المناسب؟</strong>
           <strong>كم فيه كارب؟</strong>
           <strong>وكم الجرعة؟</strong><br>
-          هنا يجي دور <strong>كارب مايند</strong>…
-          نرتّب لك هالفوضى ببساطة.
+          <strong>كارب مايند</strong> يساعدك ترتّب هالفوضى<br>
+          بشكل أوضح… وأهدأ.
         </p>
 
         <div class="cta-wrap">
           <a class="cta" href="#cards">خلّنا نبدأ</a>
         </div>
 
-        <p class="mini-note">واضح، هادي، ومصمم للعائلات من أول يوم.</p>
+        <p class="mini-note">واجهة أوضح… وتجربة أقرب لتطبيق فعلي.</p>
       </section>
 
       <section id="cards" class="cards-section">
@@ -389,41 +449,41 @@
 
           <div class="card reveal">
             <div class="card-top">
-              <div class="icon-badge">📊</div>
+              <div class="icon-badge icon-purple">📊</div>
               <h3>السكري وأرقامه</h3>
             </div>
-            <p>افهم قراءة السكر ومتى تكون مرتفعة أو مطمئنة.</p>
+            <p>خلّنا نبسّط لك قراءة السكر ومتى تكون مطمّنة أو تحتاج انتباه.</p>
           </div>
 
           <div class="card reveal">
             <div class="card-top">
-              <div class="icon-badge">🧠</div>
+              <div class="icon-badge icon-mint">🧠</div>
               <h3>معامل الكارب</h3>
             </div>
-            <p>خلّنا نساعدك تعرف معامل الكارب بطريقة بسيطة.</p>
+            <p>إذا المعامل لخبطك، نرتّب لك فكرته بطريقة أوضح وأسهل.</p>
           </div>
 
           <div class="card reveal">
             <div class="card-top">
-              <div class="icon-badge">🍽️</div>
+              <div class="icon-badge icon-gold">🍽️</div>
               <h3>كارب الوجبة</h3>
             </div>
-            <p>اكتب الوجبة ونحسب لك الكارب بسرعة.</p>
+            <p>عندك وجبة ومحتار فيها؟ خلّنا نحسب كاربها معك بسرعة.</p>
           </div>
 
           <div class="card reveal">
             <div class="card-top">
-              <div class="icon-badge">📂</div>
+              <div class="icon-badge icon-purple">📂</div>
               <h3>ملفات مفيدة</h3>
             </div>
-            <p>أدلة وملفات مرتبة تساعدك في رحلتك مع السكري.</p>
+            <p>ملفات وأشياء مرتبة تخلي الطريق أوضح عليكم من أول يوم.</p>
           </div>
 
         </div>
       </section>
 
       <div class="section-end">
-        هذه البداية… وبعدها نربط كل بطاقة بأداة فعلية داخل كارب مايند.
+        هذه بداية أوضح… وبعدها نربط كل بطاقة بأداة فعلية داخل كارب مايند.
       </div>
 
     </div>
@@ -437,7 +497,7 @@
         const top = el.getBoundingClientRect().top;
         const trigger = window.innerHeight - 70;
         if(top < trigger){
-          setTimeout(()=> el.classList.add('active'), index * 90);
+          setTimeout(() => el.classList.add('active'), index * 90);
         }
       });
     }
