@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CarbMind | كارب مايند</title>
-  <meta name="description" content="كارب مايند يساعد العائلات على ترتيب لخبطة الأكل والكارب بعد تشخيص السكري." />
+  <meta name="description" content="كارب مايند يرتّب لخبطة البداية بعد تشخيص السكري: الكارب، المعامل، والأرقام." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,98 +12,82 @@
 
   <style>
     :root{
-      --bg:#f4f2f7;
-      --bg-soft:#fbfafc;
+      --bg:#f5f3fb;
+      --bg-2:#f9f8fc;
       --surface:#ffffff;
-      --surface-2:#f7f5fa;
-      --text:#1a2033;
-      --muted:#7e8599;
-      --line:#ebe7f1;
-
-      --brand:#8b7cf7;
+      --surface-2:#faf9fd;
+      --text:#182236;
+      --muted:#7b8397;
+      --line:#ebe7f2;
+      --brand:#7b6ef6;
       --brand-soft:#f1eeff;
-
-      --accent:#e2bb66;
-      --accent-soft:#fbf2dc;
-
-      --mint:#dfeee5;
-      --mint-2:#b8d4c1;
-
-      --shadow:0 14px 40px rgba(26,32,51,.08);
-      --shadow-hover:0 20px 50px rgba(26,32,51,.12);
-
-      --radius-xl:34px;
-      --radius-lg:26px;
-      --radius-md:20px;
+      --mint:#e8f4ec;
+      --mint-2:#d7eadf;
+      --gold:#fbf3df;
+      --gold-2:#e4c067;
+      --shadow:0 14px 40px rgba(24,34,54,.08);
+      --shadow-hover:0 22px 54px rgba(24,34,54,.12);
     }
 
-    *{
-      box-sizing:border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family:'Tajawal', sans-serif;
-      background:
-        radial-gradient(circle at 10% 10%, rgba(139,124,247,.10), transparent 18%),
-        radial-gradient(circle at 90% 0%, rgba(226,187,102,.12), transparent 20%),
-        linear-gradient(180deg, #f8f7fb 0%, #f2f1f6 100%);
+      font-family:'Tajawal',sans-serif;
       color:var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(123,110,246,.10), transparent 18%),
+        radial-gradient(circle at 90% 0%, rgba(228,192,103,.12), transparent 20%),
+        linear-gradient(180deg, #faf9fd 0%, #f3f1f8 100%);
     }
 
     .page{
-      width:min(100% - 18px, 1080px);
+      width:min(100% - 16px, 1080px);
       margin-inline:auto;
-      padding:18px 0 34px;
+      padding:14px 0 28px;
     }
 
-    .app-shell{
+    .app{
       background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,246,251,.96));
       border:1px solid var(--line);
-      border-radius:42px;
-      box-shadow:0 28px 80px rgba(26,32,51,.08);
+      border-radius:38px;
       overflow:hidden;
+      box-shadow:0 28px 80px rgba(24,34,54,.08);
       position:relative;
     }
 
-    .app-shell::before{
-      content:"";
-      position:absolute;
-      width:300px;
-      height:300px;
-      top:-120px;
-      left:-100px;
-      background:radial-gradient(circle, rgba(139,124,247,.10), transparent 70%);
-      pointer-events:none;
-    }
-
-    .app-shell::after{
+    .app::before{
       content:"";
       position:absolute;
       width:260px;
       height:260px;
-      bottom:-120px;
+      top:-120px;
+      left:-100px;
+      background:radial-gradient(circle, rgba(123,110,246,.10), transparent 70%);
+      pointer-events:none;
+    }
+
+    .app::after{
+      content:"";
+      position:absolute;
+      width:240px;
+      height:240px;
+      bottom:-100px;
       right:-80px;
-      background:radial-gradient(circle, rgba(226,187,102,.12), transparent 70%);
+      background:radial-gradient(circle, rgba(228,192,103,.10), transparent 70%);
       pointer-events:none;
     }
 
     .hero{
-      padding:24px 18px 28px;
+      padding:22px 16px 28px;
       text-align:center;
-      position:relative;
       background:
-        radial-gradient(circle at top center, rgba(139,124,247,.08), transparent 32%),
-        linear-gradient(180deg, #fbfafc 0%, #f6f4f9 100%);
+        radial-gradient(circle at top center, rgba(123,110,246,.08), transparent 30%),
+        linear-gradient(180deg, #fbfafd 0%, #f7f5fb 100%);
+      position:relative;
     }
 
-    .top-chip{
-      width:100%;
+    .brand-wrap{
       display:flex;
       justify-content:center;
       margin-bottom:18px;
@@ -124,82 +108,68 @@
     .brand-badge{
       display:flex;
       align-items:center;
-      justify-content:center;
       gap:6px;
       background:var(--brand-soft);
-      border:1px solid rgba(139,124,247,.18);
+      border:1px solid rgba(123,110,246,.18);
       border-radius:999px;
       padding:8px 12px;
-      min-width:62px;
       min-height:42px;
     }
 
-    .brain,
-    .grain{
+    .brain,.grain{
       display:inline-block;
       font-size:20px;
       line-height:1;
     }
 
-    .brain{
-      animation:brainFloat 3s ease-in-out infinite;
-    }
-
-    .grain{
-      animation:grainFloat 3s ease-in-out infinite;
-      animation-delay:.25s;
-    }
+    .brain{animation:brainFloat 3s ease-in-out infinite}
+    .grain{animation:grainFloat 3s ease-in-out infinite .2s}
 
     @keyframes brainFloat{
-      0%,100%{transform:translateY(0px) rotate(0deg);}
-      50%{transform:translateY(-2px) rotate(-5deg);}
+      0%,100%{transform:translateY(0) rotate(0)}
+      50%{transform:translateY(-2px) rotate(-5deg)}
     }
-
     @keyframes grainFloat{
-      0%,100%{transform:translateY(0px) rotate(0deg);}
-      50%{transform:translateY(-2px) rotate(6deg);}
+      0%,100%{transform:translateY(0) rotate(0)}
+      50%{transform:translateY(-2px) rotate(7deg)}
     }
 
     .brand-name{
-      font-family:'Alexandria', sans-serif;
-      font-size:28px;
+      font-family:'Alexandria',sans-serif;
+      font-size:27px;
       font-weight:800;
       color:var(--text);
-      letter-spacing:.2px;
     }
 
     .eyebrow{
       display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      margin-bottom:18px;
       padding:10px 16px;
       border-radius:999px;
       background:var(--surface);
       border:1px solid var(--line);
-      color:#6e7590;
-      font-size:15px;
+      color:#737b90;
+      font-size:14px;
       font-weight:700;
-      box-shadow:0 10px 24px rgba(26,32,51,.04);
+      box-shadow:0 10px 24px rgba(24,34,54,.04);
+      margin-bottom:16px;
     }
 
     .hook{
       max-width:760px;
-      margin:0 auto 16px;
-      font-family:'Alexandria', sans-serif;
+      margin:0 auto 14px;
+      font-family:'Alexandria',sans-serif;
       font-size:clamp(34px, 7vw, 62px);
-      line-height:1.16;
+      line-height:1.13;
       font-weight:800;
       letter-spacing:-0.8px;
-      color:#162033;
     }
 
     .subcopy{
       max-width:720px;
-      margin:0 auto 26px;
-      font-size:clamp(21px, 2.6vw, 29px);
-      line-height:1.85;
+      margin:0 auto 24px;
       color:var(--muted);
+      font-size:clamp(21px, 2.7vw, 29px);
+      line-height:1.85;
       font-weight:500;
     }
 
@@ -221,25 +191,24 @@
       min-width:220px;
       padding:17px 28px;
       border-radius:18px;
-      background:linear-gradient(180deg, #9a8cff 0%, #7b6ef6 100%);
-      color:#fff;
       text-decoration:none;
+      color:#fff;
+      background:linear-gradient(180deg, #9a8cff 0%, #7b6ef6 100%);
+      box-shadow:0 16px 34px rgba(123,110,246,.22);
       font-size:24px;
       font-weight:800;
-      box-shadow:0 16px 34px rgba(123,110,246,.24);
       transition:.25s ease;
     }
 
     .cta:hover{
       transform:translateY(-3px);
-      box-shadow:0 22px 40px rgba(123,110,246,.28);
-      background:linear-gradient(180deg, #a295ff 0%, #7263f0 100%);
+      box-shadow:0 22px 42px rgba(123,110,246,.28);
     }
 
     .mini-note{
-      color:#98a0b3;
-      font-size:17px;
       margin:0;
+      color:#9aa1b3;
+      font-size:16px;
     }
 
     .cards-section{
@@ -254,6 +223,9 @@
     }
 
     .card{
+      display:block;
+      text-decoration:none;
+      color:inherit;
       background:linear-gradient(180deg, #ffffff 0%, #fcfbfe 100%);
       border:1px solid var(--line);
       border-radius:30px;
@@ -261,20 +233,9 @@
       box-shadow:var(--shadow);
       transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
       opacity:0;
-      transform:translateY(24px);
+      transform:translateY(22px);
       position:relative;
       overflow:hidden;
-    }
-
-    .card::before{
-      content:"";
-      position:absolute;
-      width:120px;
-      height:120px;
-      left:-30px;
-      bottom:-40px;
-      background:radial-gradient(circle, rgba(139,124,247,.06), transparent 70%);
-      pointer-events:none;
     }
 
     .card.active{
@@ -285,7 +246,18 @@
     .card:hover{
       transform:translateY(-8px) scale(1.01);
       box-shadow:var(--shadow-hover);
-      border-color:rgba(139,124,247,.22);
+      border-color:rgba(123,110,246,.22);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      width:120px;
+      height:120px;
+      left:-30px;
+      bottom:-40px;
+      background:radial-gradient(circle, rgba(123,110,246,.06), transparent 70%);
+      pointer-events:none;
     }
 
     .card-top{
@@ -298,11 +270,10 @@
 
     .card h3{
       margin:0;
-      font-family:'Alexandria', sans-serif;
+      font-family:'Alexandria',sans-serif;
       font-size:26px;
       line-height:1.2;
       font-weight:800;
-      color:var(--text);
     }
 
     .card p{
@@ -311,6 +282,7 @@
       font-size:19px;
       line-height:1.85;
       font-weight:500;
+      text-decoration:none;
     }
 
     .icon-badge{
@@ -319,100 +291,43 @@
       border-radius:18px;
       display:grid;
       place-items:center;
-      flex-shrink:0;
       font-size:25px;
-      border:1px solid transparent;
+      flex-shrink:0;
     }
 
-    .icon-purple{
-      background:var(--brand-soft);
-      border-color:rgba(139,124,247,.18);
-    }
-
-    .icon-gold{
-      background:var(--accent-soft);
-      border-color:rgba(226,187,102,.22);
-    }
-
-    .icon-mint{
-      background:#edf7f1;
-      border-color:rgba(184,212,193,.35);
-    }
+    .icon-purple{background:var(--brand-soft);border:1px solid rgba(123,110,246,.18)}
+    .icon-mint{background:var(--mint);border:1px solid rgba(145,177,155,.24)}
+    .icon-gold{background:var(--gold);border:1px solid rgba(228,192,103,.24)}
 
     .section-end{
       padding:0 16px 24px;
       text-align:center;
-      color:#98a0b3;
+      color:#9aa1b3;
       font-size:15px;
       background:#f7f6fa;
     }
 
-    @media (max-width: 760px){
-      .page{
-        width:min(100% - 14px, 1080px);
-        padding-top:12px;
-      }
-
-      .app-shell{
-        border-radius:32px;
-      }
-
-      .hero{
-        padding:18px 14px 24px;
-      }
-
-      .brand{
-        padding:11px 16px;
-      }
-
-      .brand-name{
-        font-size:25px;
-      }
-
-      .eyebrow{
-        font-size:14px;
-        padding:9px 14px;
-      }
-
-      .hook{
-        max-width:100%;
-      }
-
-      .subcopy{
-        max-width:100%;
-      }
-
-      .cta{
-        width:100%;
-        max-width:260px;
-        font-size:22px;
-      }
-
-      .cards{
-        grid-template-columns:1fr;
-      }
-
-      .card{
-        border-radius:24px;
-      }
-
-      .card h3{
-        font-size:24px;
-      }
-
-      .card p{
-        font-size:18px;
-      }
+    @media (max-width:760px){
+      .page{width:min(100% - 12px,1080px);padding-top:10px}
+      .app{border-radius:30px}
+      .hero{padding:18px 14px 24px}
+      .brand-name{font-size:24px}
+      .hook{max-width:100%}
+      .subcopy{max-width:100%}
+      .cta{width:100%;max-width:260px;font-size:22px}
+      .cards{grid-template-columns:1fr}
+      .card{border-radius:24px}
+      .card h3{font-size:24px}
+      .card p{font-size:18px}
     }
   </style>
 </head>
 <body>
-
   <div class="page">
-    <div class="app-shell">
+    <div class="app">
 
       <section class="hero">
-        <div class="top-chip">
+        <div class="brand-wrap">
           <div class="brand">
             <div class="brand-badge">
               <span class="brain">🧠</span>
@@ -422,7 +337,7 @@
           </div>
         </div>
 
-        <div class="eyebrow">رتّب لخبطة البداية… خطوة خطوة</div>
+        <div class="eyebrow">نرتّب لخبطة البداية… خطوة خطوة</div>
 
         <h1 class="hook">
           فجأة…<br>
@@ -433,7 +348,7 @@
           <strong>وش المناسب؟</strong>
           <strong>كم فيه كارب؟</strong>
           <strong>وكم الجرعة؟</strong><br>
-          <strong>كارب مايند</strong> يساعدك ترتّب هالفوضى<br>
+          <strong>كارب مايند</strong> يساعدك ترتّب هاللخبطة
           بشكل أوضح… وأهدأ.
         </p>
 
@@ -441,43 +356,43 @@
           <a class="cta" href="#cards">خلّنا نبدأ</a>
         </div>
 
-        <p class="mini-note">واجهة أوضح… وتجربة أقرب لتطبيق فعلي.</p>
+        <p class="mini-note">واجهة أوضح… وتجربة أقرب للتطبيق فعليًا.</p>
       </section>
 
       <section id="cards" class="cards-section">
         <div class="cards">
 
-<a href="numbers.html" class="card reveal">
+          <a href="numbers.html" class="card reveal">
             <div class="card-top">
               <div class="icon-badge icon-purple">📊</div>
               <h3>السكري وأرقامه</h3>
             </div>
             <p>خلّنا نبسّط لك قراءة السكر ومتى تكون مطمّنة أو تحتاج انتباه.</p>
-</a>
+          </a>
 
-          <div class="card reveal">
+          <a href="ratio.html" class="card reveal">
             <div class="card-top">
               <div class="icon-badge icon-mint">🧠</div>
               <h3>معامل الكارب</h3>
             </div>
             <p>إذا المعامل لخبطك، نرتّب لك فكرته بطريقة أوضح وأسهل.</p>
-          </div>
+          </a>
 
-          <div class="card reveal">
+          <a href="meal.html" class="card reveal">
             <div class="card-top">
               <div class="icon-badge icon-gold">🍽️</div>
               <h3>كارب الوجبة</h3>
             </div>
             <p>عندك وجبة ومحتار فيها؟ خلّنا نحسب كاربها معك بسرعة.</p>
-          </div>
+          </a>
 
-          <div class="card reveal">
+          <a href="files.html" class="card reveal">
             <div class="card-top">
               <div class="icon-badge icon-purple">📂</div>
               <h3>ملفات مفيدة</h3>
             </div>
             <p>ملفات وأشياء مرتبة تخلي الطريق أوضح عليكم من أول يوم.</p>
-          </div>
+          </a>
 
         </div>
       </section>
@@ -491,7 +406,6 @@
 
   <script>
     const reveals = document.querySelectorAll('.reveal');
-
     function revealOnScroll(){
       reveals.forEach((el, index)=>{
         const top = el.getBoundingClientRect().top;
@@ -501,10 +415,8 @@
         }
       });
     }
-
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
   </script>
-
 </body>
 </html>
