@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CarbMind | كارب مايند</title>
-  <meta name="description" content="كارب مايند يساعد العائلات على فهم الكارب ببساطة، خصوصًا في بداية رحلة السكري." />
+  <meta name="description" content="كارب مايند يساعد العائلات على فهم الكارب ببساطة بعد تشخيص السكري." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,20 +12,20 @@
 
   <style>
     :root{
-      --bg:#041127;
-      --bg-2:#081a35;
-      --bg-3:#0b2242;
-      --card:#08152ccc;
-      --card-2:#0b1933d9;
-      --line:rgba(58, 211, 146, .18);
-      --line-strong:rgba(58, 211, 146, .35);
-      --text:#f6fbff;
-      --muted:#b7c7df;
-      --green:#39d392;
-      --green-2:#63e6ae;
-      --green-glow:rgba(57, 211, 146, .22);
-      --shadow:0 20px 60px rgba(0,0,0,.35);
-      --radius:28px;
+      --bg:#F7FAF9;
+      --surface:#FFFFFF;
+      --surface-soft:#F1FBF6;
+      --text:#102132;
+      --muted:#617487;
+      --primary:#3BCF8E;
+      --primary-dark:#27B877;
+      --primary-soft:#E6F7F0;
+      --stroke:#E5EFEB;
+      --shadow:0 14px 34px rgba(16,33,50,.08);
+      --shadow-hover:0 20px 40px rgba(16,33,50,.12);
+      --radius-xl:28px;
+      --radius-lg:22px;
+      --radius-md:18px;
     }
 
     *{
@@ -39,401 +39,375 @@
 
     body{
       margin:0;
-      color:var(--text);
       font-family:'Tajawal', sans-serif;
       background:
-        radial-gradient(circle at 15% 0%, rgba(57,211,146,.12), transparent 22%),
-        radial-gradient(circle at 85% 10%, rgba(57,211,146,.08), transparent 18%),
-        radial-gradient(circle at 50% 30%, rgba(7,32,66,.45), transparent 40%),
-        linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 35%, var(--bg) 100%);
-      min-height:100vh;
-      overflow-x:hidden;
-    }
-
-    .bg-grid{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:.07;
-      background-image:
-        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
-      background-size:60px 60px;
-      mask-image:linear-gradient(180deg, rgba(0,0,0,.75), transparent 85%);
-    }
-
-    .bg-glow{
-      position:fixed;
-      inset:-10% auto auto 50%;
-      width:700px;
-      height:700px;
-      transform:translateX(-50%);
-      background:radial-gradient(circle, rgba(57,211,146,.08), transparent 60%);
-      filter:blur(18px);
-      pointer-events:none;
-      z-index:0;
+        radial-gradient(circle at top left, rgba(59,207,142,.08), transparent 24%),
+        radial-gradient(circle at top right, rgba(59,207,142,.06), transparent 20%),
+        var(--bg);
+      color:var(--text);
     }
 
     .container{
-      width:min(1120px, calc(100% - 32px));
+      width:min(100% - 28px, 1080px);
       margin-inline:auto;
-      position:relative;
-      z-index:1;
     }
 
-    .topbar{
-      padding:18px 0 8px;
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:54px 0 42px;
     }
 
-    .nav-shell{
+    .hero-inner{
+      width:100%;
+      text-align:center;
+    }
+
+    /* Logo */
+    .brand-wrap{
+      margin-top:18px;
+      margin-bottom:30px;
       display:flex;
       justify-content:center;
-      align-items:center;
     }
 
     .brand{
-      display:flex;
+      display:inline-flex;
       align-items:center;
       gap:12px;
-      padding:12px 18px;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(8,21,44,.48);
-      backdrop-filter:blur(14px);
-      border-radius:999px;
-      box-shadow:0 10px 30px rgba(0,0,0,.18);
       direction:ltr;
+      background:var(--surface);
+      border:1px solid var(--stroke);
+      border-radius:999px;
+      padding:14px 22px;
+      box-shadow:var(--shadow);
     }
 
     .brand-icon{
-      width:38px;
-      height:38px;
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:var(--primary-soft);
       display:grid;
       place-items:center;
-      border-radius:50%;
-      background:linear-gradient(180deg, rgba(57,211,146,.12), rgba(57,211,146,.03));
-      box-shadow:0 0 0 1px rgba(57,211,146,.14) inset, 0 0 24px rgba(57,211,146,.14);
-      animation:brandPulse 3.2s ease-in-out infinite;
+      border:1px solid rgba(59,207,142,.22);
+      animation:brainPulse 3s ease-in-out infinite;
       flex-shrink:0;
     }
 
     .brand-icon svg{
-      width:22px;
-      height:22px;
+      width:24px;
+      height:24px;
       display:block;
     }
 
     .brand-name{
       font-family:'Alexandria', sans-serif;
-      font-size:24px;
+      font-size:28px;
       font-weight:800;
-      color:#ffffff;
       letter-spacing:.2px;
+      color:var(--text);
     }
 
-    .brand-name span{
-      color:var(--green-2);
-    }
-
-    @keyframes brandPulse{
+    @keyframes brainPulse{
       0%,100%{
         transform:translateY(0) scale(1);
-        box-shadow:0 0 0 1px rgba(57,211,146,.14) inset, 0 0 24px rgba(57,211,146,.14);
+        box-shadow:0 0 0 rgba(59,207,142,0);
       }
       50%{
-        transform:translateY(-2px) scale(1.04);
-        box-shadow:0 0 0 1px rgba(57,211,146,.22) inset, 0 0 34px rgba(57,211,146,.24);
+        transform:translateY(-1px) scale(1.04);
+        box-shadow:0 0 18px rgba(59,207,142,.22);
       }
     }
 
-    .hero{
-      padding:42px 0 26px;
-      text-align:center;
-    }
-
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 16px;
-      border:1px solid rgba(99,230,174,.18);
-      border-radius:999px;
-      background:rgba(8,21,44,.45);
-      color:var(--green-2);
-      font-size:15px;
-      font-weight:700;
-      margin-bottom:22px;
-      box-shadow:0 10px 30px rgba(0,0,0,.12);
-    }
-
-    .hero h1{
+    /* Hero copy */
+    .hook{
+      max-width:760px;
       margin:0 auto 18px;
-      max-width:900px;
       font-family:'Alexandria', sans-serif;
-      font-size:clamp(34px, 6vw, 68px);
-      line-height:1.22;
+      font-size:clamp(34px, 7vw, 62px);
       font-weight:800;
+      line-height:1.2;
       letter-spacing:-0.8px;
     }
 
-    .hero p{
-      margin:0 auto;
-      max-width:760px;
+    .subcopy{
+      max-width:700px;
+      margin:0 auto 28px;
+      font-size:clamp(19px, 2.7vw, 28px);
+      line-height:1.9;
       color:var(--muted);
-      font-size:clamp(19px, 2.25vw, 25px);
-      line-height:1.95;
       font-weight:500;
     }
 
-    .hero-cta{
-      margin-top:28px;
-      display:flex;
-      justify-content:center;
+    .subcopy strong{
+      color:var(--text);
+      font-weight:800;
     }
 
-    .hero-cta a{
+    .cta-wrap{
+      display:flex;
+      justify-content:center;
+      margin-bottom:18px;
+    }
+
+    .cta{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      min-width:230px;
-      padding:17px 26px;
+      min-width:220px;
+      padding:17px 28px;
       border-radius:18px;
+      background:linear-gradient(180deg, #57dca0 0%, #3BCF8E 100%);
+      color:#fff;
       text-decoration:none;
-      color:white;
-      background:linear-gradient(180deg, #58dc93 0%, #30c978 100%);
-      box-shadow:
-        0 16px 30px rgba(57,211,146,.22),
-        0 0 36px rgba(57,211,146,.24);
-      font-family:'Tajawal', sans-serif;
       font-size:24px;
       font-weight:800;
-      transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+      box-shadow:0 14px 28px rgba(59,207,142,.22);
+      transition:.25s ease;
     }
 
-    .hero-cta a:hover{
-      transform:translateY(-2px) scale(1.01);
-      filter:brightness(1.03);
-      box-shadow:
-        0 18px 34px rgba(57,211,146,.28),
-        0 0 46px rgba(57,211,146,.28);
+    .cta:hover{
+      transform:translateY(-3px);
+      box-shadow:0 18px 34px rgba(59,207,142,.28);
+      background:linear-gradient(180deg, #60e0a7 0%, #35c986 100%);
     }
 
-    .hero-mini{
-      margin-top:16px;
-      color:#89a4c8;
-      font-size:15px;
+    .mini-note{
+      color:#8A9AA9;
+      font-size:18px;
+      margin:0;
+    }
+
+    /* Cards */
+    .cards-section{
+      padding:6px 0 54px;
     }
 
     .cards{
       display:grid;
-      gap:20px;
-      padding:34px 0 50px;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:18px;
     }
 
     .card{
-      position:relative;
-      overflow:hidden;
-      background:
-        linear-gradient(180deg, rgba(8,21,44,.88), rgba(6,17,36,.95));
-      border:1px solid var(--line);
-      border-radius:var(--radius);
+      background:var(--surface);
+      border:1px solid var(--stroke);
+      border-radius:var(--radius-xl);
       padding:24px 22px;
       box-shadow:var(--shadow);
-      backdrop-filter:blur(12px);
-      transition:transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+      opacity:0;
+      transform:translateY(34px);
     }
 
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:auto auto -30px -20px;
-      width:170px;
-      height:170px;
-      background:radial-gradient(circle, rgba(57,211,146,.10), transparent 70%);
-      pointer-events:none;
+    .card.active{
+      opacity:1;
+      transform:translateY(0);
     }
 
     .card:hover{
-      transform:translateY(-4px);
-      border-color:var(--line-strong);
-      box-shadow:0 24px 64px rgba(0,0,0,.42), 0 0 0 1px rgba(57,211,146,.06) inset;
+      transform:translateY(-6px);
+      box-shadow:var(--shadow-hover);
+      border-color:rgba(59,207,142,.26);
     }
 
-    .card-head{
+    .card-top{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
       gap:16px;
-      margin-bottom:12px;
+      margin-bottom:14px;
     }
 
-    .card-title{
-      font-family:'Alexandria', sans-serif;
-      font-size:30px;
-      font-weight:800;
+    .card h3{
       margin:0;
-      color:#effff7;
-    }
-
-    .card-icon{
-      width:64px;
-      height:64px;
-      border-radius:20px;
-      display:grid;
-      place-items:center;
-      font-size:30px;
-      flex-shrink:0;
-      background:linear-gradient(180deg, rgba(57,211,146,.14), rgba(57,211,146,.05));
-      border:1px solid rgba(99,230,174,.14);
-      box-shadow:0 0 26px rgba(57,211,146,.10);
+      font-family:'Alexandria', sans-serif;
+      font-size:28px;
+      line-height:1.25;
+      font-weight:800;
+      color:var(--text);
     }
 
     .card p{
       margin:0;
-      color:#d4e0f4;
-      font-size:22px;
-      line-height:1.85;
+      color:var(--muted);
+      font-size:20px;
+      line-height:1.8;
       font-weight:500;
     }
 
-    .footer-note{
-      text-align:center;
-      color:#7992b5;
-      font-size:15px;
-      padding:4px 0 38px;
+    .icon-badge{
+      width:62px;
+      height:62px;
+      border-radius:20px;
+      background:var(--primary-soft);
+      border:1px solid rgba(59,207,142,.20);
+      display:grid;
+      place-items:center;
+      font-size:28px;
+      flex-shrink:0;
     }
 
+    /* Mobile */
     @media (max-width: 768px){
-      .container{
-        width:min(100% - 24px, 1120px);
+      .hero{
+        min-height:auto;
+        padding-top:42px;
       }
 
-      .topbar{
-        padding-top:16px;
+      .brand-wrap{
+        margin-top:8px;
+        margin-bottom:26px;
       }
 
       .brand{
-        padding:11px 16px;
-        gap:10px;
+        padding:13px 20px;
       }
 
       .brand-name{
-        font-size:22px;
+        font-size:26px;
       }
 
-      .hero{
-        padding-top:32px;
-      }
-
-      .hero h1{
+      .hook{
         max-width:100%;
       }
 
-      .hero p{
+      .subcopy{
         max-width:100%;
       }
 
-      .hero-cta a{
+      .cta{
         width:100%;
         max-width:260px;
         font-size:22px;
+      }
+
+      .cards{
+        grid-template-columns:1fr;
       }
 
       .card{
         padding:22px 18px;
       }
 
-      .card-title{
-        font-size:27px;
+      .card h3{
+        font-size:26px;
       }
 
       .card p{
-        font-size:20px;
+        font-size:19px;
       }
 
-      .card-icon{
+      .icon-badge{
         width:58px;
         height:58px;
-        font-size:28px;
+        font-size:26px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="bg-grid"></div>
-  <div class="bg-glow"></div>
 
-  <div class="container">
-    <header class="topbar">
-      <div class="nav-shell">
-        <div class="brand">
-          <div class="brand-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M9.1 4.6C5.8 4.6 3.5 7 3.5 10.1c0 1.9.9 3.6 2.4 4.7-.1.8-.6 1.6-1.3 2 .8.2 2.1 0 3.2-.9.4.1.9.2 1.3.2V4.6Z" stroke="#86efac" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9.2 7.2c1.1-1.2 2.4-1.8 4-1.8 3.5 0 6 2.5 6 5.8 0 1.6-.6 3-1.7 4 .1 1.4.4 2.3 1 3-1 .2-2.4-.1-3.4-1-.6.2-1.2.3-1.9.3-1.4 0-2.7-.4-3.8-1.2" stroke="#34d399" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M7.1 8.2c.7.3 1.1.7 1.4 1.4M6.8 11.3c.8.2 1.4.5 1.9 1.2M13.1 8.1c.8.2 1.4.6 1.8 1.2M13.2 11.4c1 .2 1.7.7 2.2 1.4" stroke="#dcfce7" stroke-width="1.65" stroke-linecap="round"/>
-            </svg>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+
+        <div class="brand-wrap">
+          <div class="brand">
+            <div class="brand-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M9 4.8C5.8 4.8 3.5 7.2 3.5 10.2c0 1.8.8 3.4 2.2 4.5-.2.8-.7 1.5-1.3 1.9.8.2 2 .1 3-.8.5.1 1 .2 1.6.2V4.8Z" stroke="#20B875" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 7.2c1.1-1.1 2.4-1.7 3.9-1.7 3.4 0 5.9 2.4 5.9 5.6 0 1.5-.6 2.9-1.7 3.9 0 1.3.4 2.2 1 2.8-1 .2-2.3-.1-3.3-.9-.6.2-1.2.3-1.9.3-1.4 0-2.7-.4-3.8-1.1" stroke="#20B875" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.9 8.5c.7.2 1.1.6 1.4 1.2M6.8 11.3c.8.2 1.4.5 1.8 1.1M13 8.3c.8.2 1.4.5 1.8 1.1M13.1 11.2c.9.2 1.6.7 2 1.3" stroke="#7FE8B8" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="brand-name">CarbMind</div>
           </div>
-          <div class="brand-name">Carb<span>Mind</span></div>
         </div>
+
+        <h1 class="hook">
+          بعد تشخيص السكري…<br>
+          الأكل ما عاد شيء عادي.
+        </h1>
+
+        <p class="subcopy">
+          كل وجبة يصير معها لخبطة:
+          <strong>وش المناسب؟</strong>
+          <strong>كم فيه كارب؟</strong>
+          <strong>وكم الجرعة؟</strong><br>
+          هنا يجي دور <strong>كارب مايند</strong>…
+          نرتّب لك هالفوضى ببساطة.
+        </p>
+
+        <div class="cta-wrap">
+          <a class="cta" href="#cards">خلّنا نبدأ</a>
+        </div>
+
+        <p class="mini-note">واضح، هادي، ومصمم للعائلات من أول يوم.</p>
+
       </div>
-    </header>
-
-    <main class="hero">
-      <div class="eyebrow">نبدأ من أول شيء يربك العائلة: فهم الكارب</div>
-
-      <h1>
-        تشخيص السكري يربك كثير من العائلات…<br>
-        لكن فهم الكارب ما لازم يكون معقد.
-      </h1>
-
-      <p>
-        إذا كان السكري جديد عليكم، فمن الطبيعي تحسون بحيرة مع الأكل والجرعات.
-        <strong style="color:#ffffff;">كارب مايند</strong>
-        يساعدكم تبدأون من أهم خطوة: فهم الكارب ببساطة.
-      </p>
-
-      <div class="hero-cta">
-        <a href="#">ابدأ بفهم الكارب</a>
-      </div>
-
-      <div class="hero-mini">واضح، بسيط، ومصمم للعائلات من أول يوم.</div>
-    </main>
-
-    <section class="cards">
-      <article class="card">
-        <div class="card-head">
-          <div class="card-icon">🥖</div>
-          <h3 class="card-title">حاسبة الكارب</h3>
-        </div>
-        <p>
-          احسب كمية الكارب في الوجبة بشكل سريع وواضح… بدون لخبطة أو تعقيد.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-head">
-          <div class="card-icon">🧮</div>
-          <h3 class="card-title">فهم المعامل</h3>
-        </div>
-        <p>
-          افهم معنى معامل الكارب بطريقة قريبة وسهلة، خصوصًا إذا كنتم في بداية الرحلة.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-head">
-          <div class="card-icon">🍽️</div>
-          <h3 class="card-title">دليل الأطعمة</h3>
-        </div>
-        <p>
-          تعرّف على أشهر الأطعمة والكارب التقريبي فيها، حتى تكون الصورة أوضح قبل كل وجبة.
-        </p>
-      </article>
-    </section>
-
-    <div class="footer-note">
-      هذا مجرد بداية الواجهة… والنسخة القادمة سنحوّلها إلى أداة حقيقية.
     </div>
-  </div>
+  </section>
+
+  <section id="cards" class="cards-section">
+    <div class="container">
+      <div class="cards">
+
+        <div class="card reveal">
+          <div class="card-top">
+            <div class="icon-badge">📊</div>
+            <h3>السكري وأرقامه</h3>
+          </div>
+          <p>افهم قراءة السكر ومتى تكون مرتفعة أو مطمئنة.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-top">
+            <div class="icon-badge">🧠</div>
+            <h3>معامل الكارب</h3>
+          </div>
+          <p>خلّنا نساعدك تعرف معامل الكارب بطريقة بسيطة.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-top">
+            <div class="icon-badge">🍽️</div>
+            <h3>كارب الوجبة</h3>
+          </div>
+          <p>اكتب الوجبة ونحسب لك الكارب بسرعة.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-top">
+            <div class="icon-badge">📂</div>
+            <h3>ملفات مفيدة</h3>
+          </div>
+          <p>أدلة وملفات مرتبة تساعدك في رحلتك مع السكري.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const cards = document.querySelectorAll('.reveal');
+
+    const revealOnScroll = () => {
+      cards.forEach((card, index) => {
+        const top = card.getBoundingClientRect().top;
+        const trigger = window.innerHeight - 80;
+        if (top < trigger) {
+          setTimeout(() => card.classList.add('active'), index * 90);
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
+
 </body>
 </html>
