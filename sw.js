@@ -1,4 +1,4 @@
-const CACHE_NAME = "carbmind-v3";
+const CACHE_NAME = "carbmind-v2";
 
 const urlsToCache = [
   "./",
@@ -33,25 +33,6 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") {
-    return;
-  }
-
-  const isHtmlRequest =
-    event.request.mode === "navigate" ||
-    (event.request.headers.get("accept") || "").includes("text/html");
-
-  if (isHtmlRequest) {
-    event.respondWith(
-      fetch(event.request)
-        .then(networkResponse => {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseClone);
-          });
-          return networkResponse;
-        })
-        .catch(() => caches.match(event.request).then(cachedResponse => cachedResponse || caches.match("./index.html")))
-    );
     return;
   }
 
