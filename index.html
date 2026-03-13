@@ -1,438 +1,725 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#7b6ef6">
-<link rel="apple-touch-icon" href="icon.png">
-    
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CarbMind | كارب مايند</title>
-  <meta name="description" content="كارب مايند يرتّب لخبطة البداية بعد تشخيص السكري: الكارب، المعامل، والأرقام." />
-  <meta name="theme-color" content="#7b6ef6" />
-
-  <link rel="manifest" href="manifest.json">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-
+  <meta name="description" content="كارب مايند يساعد مرضى السكري والأهل في تنظيم الكارب والجرعة والأرقام اليومية ببساطة." />
+  <meta name="theme-color" content="#c48b33" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --bg:#f5f3fb;
-      --bg-2:#f9f8fc;
-      --surface:#ffffff;
-      --surface-2:#faf9fd;
-      --text:#182236;
-      --muted:#7b8397;
-      --line:#ebe7f2;
-      --brand:#7b6ef6;
-      --brand-soft:#f1eeff;
-      --mint:#e8f4ec;
-      --mint-2:#d7eadf;
-      --gold:#fbf3df;
-      --gold-2:#e4c067;
-      --shadow:0 14px 40px rgba(24,34,54,.08);
-      --shadow-hover:0 22px 54px rgba(24,34,54,.12);
+    :root {
+      --bg: #fbf7ef;
+      --surface: #fffdf9;
+      --surface-2: #f7f2e7;
+      --line: #eadfca;
+      --text: #2f2a1f;
+      --muted: #6f6656;
+      --brand: #c48b33;
+      --brand-dark: #9c6821;
+      --brand-soft: #f6e6c9;
+      --green: #2f8a59;
+      --green-soft: #e8f4eb;
+      --red: #c84f4f;
+      --red-soft: #fdecea;
+      --amber: #b87000;
+      --amber-soft: #fff3de;
+      --blue: #2c67a1;
+      --blue-soft: #e9f3ff;
+      --shadow: 0 18px 42px rgba(71, 51, 20, 0.12);
     }
 
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:'Tajawal',sans-serif;
-      color:var(--text);
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Tajawal', sans-serif;
+      color: var(--text);
       background:
-        radial-gradient(circle at 10% 10%, rgba(123,110,246,.10), transparent 18%),
-        radial-gradient(circle at 90% 0%, rgba(228,192,103,.12), transparent 20%),
-        linear-gradient(180deg, #faf9fd 0%, #f3f1f8 100%);
+        radial-gradient(circle at 10% 10%, rgba(196, 139, 51, 0.14), transparent 26%),
+        radial-gradient(circle at 90% 0%, rgba(244, 225, 183, 0.5), transparent 20%),
+        var(--bg);
     }
 
-    .page{
-      width:min(100% - 16px, 1080px);
-      margin-inline:auto;
-      padding:14px 0 28px;
+    .page {
+      width: min(100% - 18px, 1100px);
+      margin-inline: auto;
+      padding: 12px 0 28px;
     }
 
-    .app{
-      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,246,251,.96));
-      border:1px solid var(--line);
-      border-radius:38px;
-      overflow:hidden;
-      box-shadow:0 28px 80px rgba(24,34,54,.08);
-      position:relative;
+    .shell {
+      background: linear-gradient(180deg, #fffefb 0%, #f9f5ec 100%);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
-    .app::before{
-      content:"";
-      position:absolute;
-      width:260px;
-      height:260px;
-      top:-120px;
-      left:-100px;
-      background:radial-gradient(circle, rgba(123,110,246,.10), transparent 70%);
-      pointer-events:none;
+    .hero {
+      padding: 22px 14px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(247, 240, 225, 0.95));
     }
 
-    .app::after{
-      content:"";
-      position:absolute;
-      width:240px;
-      height:240px;
-      bottom:-100px;
-      right:-80px;
-      background:radial-gradient(circle, rgba(228,192,103,.10), transparent 70%);
-      pointer-events:none;
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      font-family: 'Alexandria', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
     }
 
-    .hero{
-      padding:22px 16px 28px;
-      text-align:center;
+    .logo span { font-size: 20px; }
+
+    .hero h1 {
+      margin: 16px auto 10px;
+      font-family: 'Alexandria', sans-serif;
+      font-size: clamp(30px, 8vw, 52px);
+      line-height: 1.2;
+      max-width: 760px;
+    }
+
+    .hero p {
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: clamp(18px, 4.5vw, 25px);
+      line-height: 1.75;
+      max-width: 760px;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+      padding: 16px;
+    }
+
+    .panel h2 {
+      margin: 0 0 8px;
+      font-family: 'Alexandria', sans-serif;
+      font-size: 24px;
+    }
+
+    .panel-note {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .field { display: grid; gap: 6px; }
+
+    .field label {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .field input,
+    .field select {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      min-height: 44px;
+      padding: 0 12px;
+      font-family: inherit;
+      font-size: 16px;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      min-height: 46px;
+      padding: 0 16px;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      color: #fff;
+      background: linear-gradient(180deg, var(--brand), var(--brand-dark));
+    }
+
+    .btn.ghost {
+      color: var(--brand-dark);
+      background: var(--brand-soft);
+      border: 1px solid #e5cfaa;
+    }
+
+    .status {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .preview-wrap { display: grid; gap: 12px; }
+
+    .patient-card {
+      position: relative;
+      min-height: 320px;
+      border-radius: 26px;
+      padding: 18px;
       background:
-        radial-gradient(circle at top center, rgba(123,110,246,.08), transparent 30%),
-        linear-gradient(180deg, #fbfafd 0%, #f7f5fb 100%);
-      position:relative;
+        radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0.4), transparent 45%),
+        linear-gradient(135deg, #d8b26a, #b07728 55%, #8d5c1f 100%);
+      color: #fff;
+      overflow: hidden;
+      box-shadow: 0 14px 30px rgba(90, 58, 18, 0.28);
     }
 
-    .brand-wrap{
-      display:flex;
-      justify-content:center;
-      margin-bottom:18px;
+    .patient-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -80px auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
     }
 
-    .brand{
-      display:inline-flex;
-      align-items:center;
-      gap:12px;
-      direction:ltr;
-      background:var(--surface);
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:12px 18px;
-      box-shadow:var(--shadow);
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 700;
     }
 
-    .brand-badge{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      background:var(--brand-soft);
-      border:1px solid rgba(123,110,246,.18);
-      border-radius:999px;
-      padding:8px 12px;
-      min-height:42px;
+    .patient-name {
+      margin: 14px 0 4px;
+      font-family: 'Alexandria', sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.2;
     }
 
-    .brain,.grain{
-      display:inline-block;
-      font-size:20px;
-      line-height:1;
+    .patient-meta {
+      margin: 0;
+      font-size: 17px;
+      opacity: 0.95;
     }
 
-    .brain{animation:brainFloat 3s ease-in-out infinite}
-    .grain{animation:grainFloat 3s ease-in-out infinite .2s}
-
-    @keyframes brainFloat{
-      0%,100%{transform:translateY(0) rotate(0)}
-      50%{transform:translateY(-2px) rotate(-5deg)}
-    }
-    @keyframes grainFloat{
-      0%,100%{transform:translateY(0) rotate(0)}
-      50%{transform:translateY(-2px) rotate(7deg)}
-    }
-
-    .brand-name{
-      font-family:'Alexandria',sans-serif;
-      font-size:27px;
-      font-weight:800;
-      color:var(--text);
+    .state-badge {
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-weight: 800;
+      font-size: 15px;
+      background: var(--green-soft);
+      color: var(--green);
     }
 
-    .eyebrow{
-      display:inline-flex;
-      padding:10px 16px;
-      border-radius:999px;
-      background:var(--surface);
-      border:1px solid var(--line);
-      color:#737b90;
-      font-size:14px;
-      font-weight:700;
-      box-shadow:0 10px 24px rgba(24,34,54,.04);
-      margin-bottom:16px;
+    .state-badge.warn { background: var(--red-soft); color: var(--red); }
+
+    .card-bottom {
+      margin-top: 14px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 8px;
     }
 
-    .hook{
-      max-width:760px;
-      margin:0 auto 14px;
-      font-family:'Alexandria',sans-serif;
-      font-size:clamp(34px, 7vw, 62px);
-      line-height:1.13;
-      font-weight:800;
-      letter-spacing:-0.8px;
+    .mini {
+      max-width: 56%;
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(255,255,255,.9);
     }
 
-    .subcopy{
-      max-width:720px;
-      margin:0 auto 24px;
-      color:var(--muted);
-      font-size:clamp(21px, 2.7vw, 29px);
-      line-height:1.85;
-      font-weight:500;
+    #qrCanvas {
+      width: 82px;
+      height: 82px;
+      border-radius: 10px;
+      background: #fff;
+      border: 5px solid #fff;
     }
 
-    .subcopy strong{
-      color:var(--text);
-      font-weight:800;
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
-    .cta-wrap{
-      display:flex;
-      justify-content:center;
-      margin-bottom:12px;
+    .tool-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      background: var(--surface-2);
+      display: grid;
+      gap: 10px;
     }
 
-    .cta{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:220px;
-      padding:17px 28px;
-      border-radius:18px;
-      text-decoration:none;
-      color:#fff;
-      background:linear-gradient(180deg, #9a8cff 0%, #7b6ef6 100%);
-      box-shadow:0 16px 34px rgba(123,110,246,.22);
-      font-size:24px;
-      font-weight:800;
-      transition:.25s ease;
+    .tool-title {
+      margin: 0;
+      font-family: 'Alexandria', sans-serif;
+      font-size: 20px;
     }
 
-    .cta:hover{
-      transform:translateY(-3px);
-      box-shadow:0 22px 42px rgba(123,110,246,.28);
+    .tool-out {
+      border: 1px dashed #e0d3ba;
+      border-radius: 12px;
+      background: #fff;
+      padding: 10px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #51493b;
     }
 
-    .mini-note{
-      margin:0;
-      color:#9aa1b3;
-      font-size:16px;
+    .badge {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      border: 1px solid transparent;
     }
 
-    .cards-section{
-      padding:18px 16px 22px;
-      background:linear-gradient(180deg, rgba(248,246,251,.96), #f7f6fa 100%);
+    .b-low { background: var(--red-soft); color: var(--red); border-color: #f3c8c8; }
+    .b-range { background: var(--green-soft); color: var(--green); border-color: #b8e1c7; }
+    .b-slight { background: var(--amber-soft); color: var(--amber); border-color: #efd39f; }
+    .b-high { background: #ffe7d8; color: #ba5f11; border-color: #f0c4a0; }
+    .b-vhigh { background: #ffe2e2; color: #a22f2f; border-color: #ecb8b8; }
+
+    details.resource {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 12px;
     }
 
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:16px;
+    details.resource summary {
+      cursor: pointer;
+      font-weight: 800;
+      color: #4b412f;
     }
 
-    .card{
-      display:block;
-      text-decoration:none;
-      color:inherit;
-      background:linear-gradient(180deg, #ffffff 0%, #fcfbfe 100%);
-      border:1px solid var(--line);
-      border-radius:30px;
-      padding:22px 18px;
-      box-shadow:var(--shadow);
-      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
-      opacity:0;
-      transform:translateY(22px);
-      position:relative;
-      overflow:hidden;
+    details.resource p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 15px;
     }
 
-    .card.active{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    .card:hover{
-      transform:translateY(-8px) scale(1.01);
-      box-shadow:var(--shadow-hover);
-      border-color:rgba(123,110,246,.22);
-    }
-
-    .card::before{
-      content:"";
-      position:absolute;
-      width:120px;
-      height:120px;
-      left:-30px;
-      bottom:-40px;
-      background:radial-gradient(circle, rgba(123,110,246,.06), transparent 70%);
-      pointer-events:none;
-    }
-
-    .card-top{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:14px;
-      margin-bottom:14px;
-    }
-
-    .card h3{
-      margin:0;
-      font-family:'Alexandria',sans-serif;
-      font-size:26px;
-      line-height:1.2;
-      font-weight:800;
-    }
-
-    .card p{
-      margin:0;
-      color:var(--muted);
-      font-size:19px;
-      line-height:1.85;
-      font-weight:500;
-      text-decoration:none;
-    }
-
-    .icon-badge{
-      width:58px;
-      height:58px;
-      border-radius:18px;
-      display:grid;
-      place-items:center;
-      font-size:25px;
-      flex-shrink:0;
-    }
-
-    .icon-purple{background:var(--brand-soft);border:1px solid rgba(123,110,246,.18)}
-    .icon-mint{background:var(--mint);border:1px solid rgba(145,177,155,.24)}
-    .icon-gold{background:var(--gold);border:1px solid rgba(228,192,103,.24)}
-
-    .section-end{
-      padding:0 16px 24px;
-      text-align:center;
-      color:#9aa1b3;
-      font-size:15px;
-      background:#f7f6fa;
-    }
-
-    @media (max-width:760px){
-      .page{width:min(100% - 12px,1080px);padding-top:10px}
-      .app{border-radius:30px}
-      .hero{padding:18px 14px 24px}
-      .brand-name{font-size:24px}
-      .hook{max-width:100%}
-      .subcopy{max-width:100%}
-      .cta{width:100%;max-width:260px;font-size:22px}
-      .cards{grid-template-columns:1fr}
-      .card{border-radius:24px}
-      .card h3{font-size:24px}
-      .card p{font-size:18px}
+    @media (max-width: 920px) {
+      .layout { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .patient-card { min-height: 300px; }
+      .mini { max-width: 60%; }
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <div class="app">
-
+    <main class="shell">
       <section class="hero">
-        <div class="brand-wrap">
-          <div class="brand">
-            <div class="brand-badge">
-              <span class="brain">🧠</span>
-              <span class="grain">🌾</span>
+        <div class="logo"><span>🌾</span> CarbMind</div>
+        <h1>واجهة مريحة لكم… وتنظيم أوضح لسكري طفلك</h1>
+        <p>هنا مو مجرد حاسبة. كارب مايند يعطيكم فهم سريع للقراءة، واقتراحات واضحة تساعدكم تتصرفون بهدوء.</p>
+      </section>
+
+      <section class="content">
+        <section class="layout">
+          <article class="panel">
+            <h2>بطاقة المريض القابلة للمشاركة</h2>
+            <p class="panel-note">اكتب البيانات الأساسية، وخذ بطاقة جميلة جاهزة للمشاركة في العائلة أو واتساب. وتقدر تصدّرها PNG مباشرة.</p>
+            <div class="grid">
+              <div class="field">
+                <label for="patientName">اسم المريض</label>
+                <input id="patientName" type="text" value="سلمان" />
+              </div>
+              <div class="field">
+                <label for="patientAge">العمر</label>
+                <input id="patientAge" type="number" min="1" max="99" value="10" />
+              </div>
+              <div class="field">
+                <label for="patientGlucose">آخر قراءة سكر (mg/dL)</label>
+                <input id="patientGlucose" type="number" min="40" max="500" value="136" />
+              </div>
+              <div class="field">
+                <label for="statusSelect">الحالة العامة</label>
+                <select id="statusSelect">
+                  <option value="مستقر" selected>مستقر</option>
+                  <option value="يحتاج متابعة">يحتاج متابعة</option>
+                </select>
+              </div>
             </div>
-            <div class="brand-name">CarbMind</div>
+
+            <p class="status" id="liveStatus">الحالة الآن: ممتازة ✅</p>
+
+            <div class="actions">
+              <button class="btn primary" id="shareBtn" type="button">مشاركة البطاقة</button>
+              <button class="btn ghost" id="resetBtn" type="button">إعادة الضبط</button>
+            </div>
+          </article>
+
+          <aside class="preview-wrap">
+            <section class="patient-card" id="patientCard">
+              <div class="tag">بطاقة مريض • CarbMind</div>
+              <h3 class="patient-name" id="previewName">سلمان</h3>
+              <p class="patient-meta" id="previewMeta">العمر: 10 سنوات • آخر قراءة: 136 mg/dL</p>
+              <div class="state-badge" id="previewBadge">الحالة: مستقرة</div>
+              <div class="card-bottom">
+                <p class="mini">جاهزة للمشاركة السريعة مع الأهل والمشرفين.</p>
+                <canvas id="qrCanvas" width="180" height="180" aria-label="QR"></canvas>
+              </div>
+            </section>
+          </aside>
+        </section>
+
+        <section class="panel">
+          <h2>أدوات كارب مايند الذكية</h2>
+          <p class="panel-note">أربع أدوات بسيطة تساعدكم على الفهم والقرار اليومي بشكل أوضح.</p>
+          <div class="tools-grid">
+            <article class="tool-card">
+              <h3 class="tool-title">1) السكري وأرقامه</h3>
+              <div class="field">
+                <label for="insightGlucose">أدخل قراءة السكر</label>
+                <input id="insightGlucose" type="number" min="40" max="500" value="136" />
+              </div>
+              <div class="badge b-range" id="insightBadge">داخل النطاق</div>
+              <div class="tool-out" id="insightResult">قراءتك داخل النطاق — ممتاز، استمروا على نفس الخطة.</div>
+              <div class="tool-out" id="insightGuide">نصيحة هادئة: استمروا على المتابعة المعتادة، وراجعي القراءة القادمة بعد الوجبة.</div>
+            </article>
+
+            <article class="tool-card">
+              <h3 class="tool-title">2) معامل الكارب</h3>
+              <div class="grid">
+                <div class="field">
+                  <label for="ratioCarbs">إجمالي الكارب (جرام)</label>
+                  <input id="ratioCarbs" type="number" min="1" value="50" />
+                </div>
+                <div class="field">
+                  <label for="ratioUnits">وحدات الإنسولين</label>
+                  <input id="ratioUnits" type="number" min="0.5" step="0.5" value="5" />
+                </div>
+              </div>
+              <div class="tool-out" id="ratioResult">المعامل التقريبي: 1 وحدة لكل 10 جرام كارب</div>
+              <div class="tool-out" id="ratioExplain">هذا تقدير مبدئي يساعدكم في المتابعة اليومية. التثبيت النهائي يكون مع الفريق الطبي.</div>
+            </article>
+
+            <article class="tool-card">
+              <h3 class="tool-title">3) حساب كارب الوجبة</h3>
+              <div class="grid">
+                <div class="field">
+                  <label for="mealGlucose">السكر الحالي</label>
+                  <input id="mealGlucose" type="number" min="40" max="500" value="210" />
+                </div>
+                <div class="field">
+                  <label for="mealCarbs">كارب الوجبة (جرام)</label>
+                  <input id="mealCarbs" type="number" min="0" value="48" />
+                </div>
+                <div class="field">
+                  <label for="mealRatio">معامل الكارب الشخصي</label>
+                  <input id="mealRatio" type="number" min="1" step="0.5" value="12" />
+                </div>
+                <div class="field">
+                  <label for="mealFactor">معامل التصحيح</label>
+                  <input id="mealFactor" type="number" min="10" step="1" value="50" />
+                </div>
+              </div>
+              <div class="tool-out" id="mealResult">جرعة الوجبة: 4.0 وحدات<br>جرعة تصحيح: 1.8 وحدة<br>الإجمالي المقترح: 5.8 وحدات</div>
+              <div class="tool-out" id="mealExplain">التوضيح: حسبنا جرعة الوجبة من الكارب، ثم أضفنا جرعة تصحيح لأن القراءة أعلى من الهدف (120).</div>
+            </article>
+
+            <article class="tool-card">
+              <h3 class="tool-title">4) ملفات مفيدة للأهل</h3>
+              <details class="resource">
+                <summary>كيف أتعامل مع هبوط السكر</summary>
+                <p>إذا القراءة منخفضة، أعطي 15 جرام سكر سريع (مثل عصير أو جلوكوز)، انتظري 15 دقيقة ثم أعيدي القياس. إذا بقي منخفض، كرري نفس الخطوة.</p>
+              </details>
+              <details class="resource">
+                <summary>ماذا أفعل إذا ارتفع السكر</summary>
+                <p>شيكي على الجرعة ووقت آخر أكل، وقدّمي ماء كفاية. إذا الارتفاع مستمر أو مع أعراض تعب قوية، اتصلي بالفريق الطبي فوراً.</p>
+              </details>
+              <details class="resource">
+                <summary>أساسيات حساب الكارب</summary>
+                <p>ابدئي بوزن الوجبة أو قراءة البطاقة الغذائية، احسبي مجموع الكارب فقط، وبعدها استخدمي معامل طفلك لتحديد جرعة الوجبة.</p>
+              </details>
+            </article>
           </div>
-        </div>
-
-        <div class="eyebrow">نرتّب لخبطة البداية… خطوة خطوة</div>
-
-        <h1 class="hook">
-          فجأة…<br>
-          الأكل صار سؤال.
-        </h1>
-
-        <p class="subcopy">
-          <strong>وش المناسب؟</strong>
-          <strong>كم فيه كارب؟</strong>
-          <strong>وكم الجرعة؟</strong><br>
-          <strong>كارب مايند</strong> يساعدك ترتّب هاللخبطة
-          بشكل أوضح… وأهدأ.
-        </p>
-
-        <div class="cta-wrap">
-          <a class="cta" href="#cards">خلّنا نبدأ</a>
-        </div>
-
-        <p class="mini-note">واجهة أوضح… وتجربة أقرب للتطبيق فعليًا.</p>
+        </section>
       </section>
-
-      <section id="cards" class="cards-section">
-        <div class="cards">
-
-          <a href="numbers.html" class="card reveal">
-            <div class="card-top">
-              <div class="icon-badge icon-purple">📊</div>
-              <h3>السكري وأرقامه</h3>
-            </div>
-            <p>خلّنا نبسّط لك قراءة السكر ومتى تكون مطمّنة أو تحتاج انتباه.</p>
-          </a>
-
-          <a href="ratio.html" class="card reveal">
-            <div class="card-top">
-              <div class="icon-badge icon-mint">🧠</div>
-              <h3>معامل الكارب</h3>
-            </div>
-            <p>إذا المعامل لخبطك، نرتّب لك فكرته بطريقة أوضح وأسهل.</p>
-          </a>
-
-          <a href="meal.html" class="card reveal">
-            <div class="card-top">
-              <div class="icon-badge icon-gold">🍽️</div>
-              <h3>كارب الوجبة</h3>
-            </div>
-            <p>عندك وجبة ومحتار فيها؟ خلّنا نحسب كاربها معك بسرعة.</p>
-          </a>
-
-          <a href="files.html" class="card reveal">
-            <div class="card-top">
-              <div class="icon-badge icon-purple">📂</div>
-              <h3>ملفات مفيدة</h3>
-            </div>
-            <p>ملفات وأشياء مرتبة تخلي الطريق أوضح عليكم من أول يوم.</p>
-          </a>
-
-        </div>
-      </section>
-
-      <div class="section-end"></div>
-
-    </div>
+    </main>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
   <script>
-    const reveals = document.querySelectorAll('.reveal');
-    function revealOnScroll(){
-      reveals.forEach((el, index)=>{
-        const top = el.getBoundingClientRect().top;
-        const trigger = window.innerHeight - 70;
-        if(top < trigger){
-          setTimeout(() => el.classList.add('active'), index * 90);
-        }
-      });
-    }
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll);
-  </script>
+    const fields = {
+      name: document.getElementById('patientName'),
+      age: document.getElementById('patientAge'),
+      glucose: document.getElementById('patientGlucose'),
+      status: document.getElementById('statusSelect')
+    };
 
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("sw.js");
-      });
+    const preview = {
+      name: document.getElementById('previewName'),
+      meta: document.getElementById('previewMeta'),
+      badge: document.getElementById('previewBadge'),
+      liveStatus: document.getElementById('liveStatus')
+    };
+
+    const qrCanvas = document.getElementById('qrCanvas');
+    new QRious({
+      element: qrCanvas,
+      value: 'https://carbmind.app',
+      size: 180,
+      background: 'white',
+      foreground: '#2f2a1f'
+    });
+
+    function evaluateState(glucose, statusText) {
+      if (statusText === 'يحتاج متابعة') {
+        return { badge: 'الحالة: تحتاج متابعة', ok: false, note: 'الحالة الآن: نحتاج متابعة قريبة ⚠️' };
+      }
+      if (glucose < 80 || glucose > 180) {
+        return { badge: 'الحالة: تحتاج متابعة', ok: false, note: 'الحالة الآن: القراءة خارج النطاق المعتاد ⚠️' };
+      }
+      return { badge: 'الحالة: مستقرة', ok: true, note: 'الحالة الآن: ممتازة ✅' };
+    }
+
+    function updatePreview() {
+      const name = fields.name.value.trim() || 'بدون اسم';
+      const age = fields.age.value || '-';
+      const glucose = Number(fields.glucose.value || 0);
+      const selected = fields.status.value;
+      const state = evaluateState(glucose, selected);
+
+      preview.name.textContent = name;
+      preview.meta.textContent = `العمر: ${age} سنوات • آخر قراءة: ${glucose || '-'} mg/dL`;
+      preview.badge.textContent = state.badge;
+      preview.badge.classList.toggle('warn', !state.ok);
+      preview.liveStatus.textContent = state.note;
+    }
+
+    function exportCardAsPng() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1350;
+      const ctx = canvas.getContext('2d');
+
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#d8b26a');
+      gradient.addColorStop(0.55, '#b07728');
+      gradient.addColorStop(1, '#8d5c1f');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.12)';
+      ctx.beginPath();
+      ctx.arc(930, 1180, 220, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      ctx.fillRect(90, 90, 420, 76);
+      ctx.font = '700 34px Tajawal';
+      ctx.fillStyle = '#fff';
+      ctx.direction = 'rtl';
+      ctx.fillText('بطاقة مريض • CarbMind', 470, 140);
+
+      ctx.font = '800 96px Alexandria';
+      ctx.fillText(preview.name.textContent, 970, 360);
+
+      ctx.font = '500 46px Tajawal';
+      ctx.fillText(preview.meta.textContent, 970, 450);
+
+      const warn = preview.badge.classList.contains('warn');
+      ctx.fillStyle = warn ? '#ffe6e1' : '#e8f4eb';
+      ctx.fillRect(620, 510, 350, 92);
+      ctx.fillStyle = warn ? '#a63131' : '#2f8a59';
+      ctx.font = '800 44px Tajawal';
+      ctx.fillText(preview.badge.textContent, 950, 570);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.font = '700 38px Tajawal';
+      ctx.fillText('جاهزة للمشاركة السريعة مع الأهل والمشرفين', 970, 1150);
+
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(770, 920, 210, 210);
+      ctx.drawImage(qrCanvas, 785, 935, 180, 180);
+
+      const link = document.createElement('a');
+      link.download = `carbmind-card-${Date.now()}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    const insightInput = document.getElementById('insightGlucose');
+    const insightBadge = document.getElementById('insightBadge');
+    const insightResult = document.getElementById('insightResult');
+    const insightGuide = document.getElementById('insightGuide');
+
+    function glucoseInsight() {
+      const value = Number(insightInput.value || 0);
+      let state = {
+        text: 'داخل النطاق',
+        badgeClass: 'b-range',
+        explain: 'القراءة ضمن النطاق المناسب الآن.',
+        guide: 'استمروا على نفس الروتين مع متابعة القراءة القادمة.'
+      };
+
+      if (value < 70) {
+        state = {
+          text: 'منخفض',
+          badgeClass: 'b-low',
+          explain: 'القراءة منخفضة الآن وتحتاج تدخل سريع.',
+          guide: 'نصيحة هادئة: قدّمي سكر سريع وأعيدي القياس بعد 15 دقيقة.'
+        };
+      } else if (value <= 140) {
+        state = {
+          text: 'داخل النطاق',
+          badgeClass: 'b-range',
+          explain: 'القراءة ضمن النطاق المناسب الآن.',
+          guide: 'نصيحة هادئة: ممتاز، استمروا على الخطة الحالية.'
+        };
+      } else if (value <= 180) {
+        state = {
+          text: 'مرتفعة قليلاً',
+          badgeClass: 'b-slight',
+          explain: 'القراءة مرتفعة قليلاً — غالبًا تحتاج متابعة.',
+          guide: 'نصيحة هادئة: يفضل متابعة الجرعة القادمة وقياس جديد خلال ساعتين.'
+        };
+      } else if (value <= 250) {
+        state = {
+          text: 'مرتفعة',
+          badgeClass: 'b-high',
+          explain: 'القراءة مرتفعة وتحتاج انتباه.',
+          guide: 'نصيحة هادئة: تأكدي من خطة التصحيح وشرب الماء والقياس لاحقًا.'
+        };
+      } else {
+        state = {
+          text: 'مرتفعة جدًا',
+          badgeClass: 'b-vhigh',
+          explain: 'القراءة مرتفعة جدًا وتحتاج متابعة أقرب.',
+          guide: 'نصيحة هادئة: ابدؤوا بخطة التصحيح المتفق عليها وتواصلوا طبيًا إذا استمر الارتفاع.'
+        };
+      }
+
+      insightBadge.className = `badge ${state.badgeClass}`;
+      insightBadge.textContent = state.text;
+      insightResult.textContent = state.explain;
+      insightGuide.textContent = state.guide;
+    }
+
+    const ratioCarbs = document.getElementById('ratioCarbs');
+    const ratioUnits = document.getElementById('ratioUnits');
+    const ratioResult = document.getElementById('ratioResult');
+    const ratioExplain = document.getElementById('ratioExplain');
+
+    function ratioCalculator() {
+      const carbs = Number(ratioCarbs.value || 0);
+      const units = Number(ratioUnits.value || 0);
+
+      if (carbs <= 0 || units <= 0) {
+        ratioResult.textContent = 'الرجاء إدخال قيم صحيحة للحساب.';
+        ratioExplain.textContent = 'مثال: 60 جرام كارب مع 6 وحدات = 1 لكل 10.';
+        return;
+      }
+
+      const ratio = (carbs / units).toFixed(1);
+      ratioResult.textContent = `المعامل التقريبي: 1 وحدة لكل ${ratio} جرام كارب`;
+      ratioExplain.textContent = 'هذا رقم إرشادي يساعدكم يوميًا. عدّلوا الخطة دائمًا حسب توجيه الطبيب.';
+    }
+
+    const mealGlucose = document.getElementById('mealGlucose');
+    const mealCarbs = document.getElementById('mealCarbs');
+    const mealRatio = document.getElementById('mealRatio');
+    const mealFactor = document.getElementById('mealFactor');
+    const mealResult = document.getElementById('mealResult');
+    const mealExplain = document.getElementById('mealExplain');
+
+    function mealEstimator() {
+      const current = Number(mealGlucose.value || 0);
+      const carbs = Number(mealCarbs.value || 0);
+      const ratio = Number(mealRatio.value || 0);
+      const factor = Number(mealFactor.value || 0);
+      const target = 120;
+
+      if (ratio <= 0 || factor <= 0 || carbs < 0 || current <= 0) {
+        mealResult.innerHTML = 'أكمل البيانات بشكل صحيح لحساب الجرعة.';
+        mealExplain.textContent = 'تأكد من إدخال القراءة الحالية، كارب الوجبة، معامل الكارب، ومعامل التصحيح.';
+        return;
+      }
+
+      const mealBolus = carbs / ratio;
+      const correction = Math.max(0, (current - target) / factor);
+      const total = mealBolus + correction;
+
+      mealResult.innerHTML = `جرعة الوجبة: ${mealBolus.toFixed(1)} وحدات<br>جرعة تصحيح: ${correction.toFixed(1)} وحدة<br>الإجمالي المقترح: ${total.toFixed(1)} وحدات`;
+      mealExplain.textContent = correction > 0
+        ? 'حسبنا جرعة الوجبة من الكارب، ثم أضفنا تصحيح لأن القراءة أعلى من الهدف (120).'
+        : 'حسبنا جرعة الوجبة فقط لأن القراءة قريبة من الهدف ولا تحتاج تصحيح إضافي.';
+    }
+
+    Object.values(fields).forEach((input) => input.addEventListener('input', updatePreview));
+    document.getElementById('shareBtn').addEventListener('click', exportCardAsPng);
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      fields.name.value = 'سلمان';
+      fields.age.value = '10';
+      fields.glucose.value = '136';
+      fields.status.value = 'مستقر';
+      updatePreview();
+    });
+
+    [insightInput].forEach((el) => el.addEventListener('input', glucoseInsight));
+    [ratioCarbs, ratioUnits].forEach((el) => el.addEventListener('input', ratioCalculator));
+    [mealGlucose, mealCarbs, mealRatio, mealFactor].forEach((el) => el.addEventListener('input', mealEstimator));
+
+    updatePreview();
+    glucoseInsight();
+    ratioCalculator();
+    mealEstimator();
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
     }
   </script>
 </body>
