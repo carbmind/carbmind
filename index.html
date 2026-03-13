@@ -24,16 +24,10 @@
       --green: #2f8a59;
       --green-soft: #e8f4eb;
       --red: #c84f4f;
-      --red-soft: #fdecea;
-      --amber: #b87000;
-      --amber-soft: #fff3de;
-      --blue: #2c67a1;
-      --blue-soft: #e9f3ff;
       --shadow: 0 18px 42px rgba(71, 51, 20, 0.12);
     }
 
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: 'Tajawal', sans-serif;
@@ -98,9 +92,9 @@
 
     .content {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      padding: 14px;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 16px;
+      padding: 16px;
     }
 
     .panel {
@@ -130,15 +124,8 @@
     }
 
     .field { display: grid; gap: 6px; }
-
-    .field label {
-      font-size: 14px;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .field input,
-    .field select {
+    .field label { font-size: 14px; color: var(--muted); font-weight: 700; }
+    .field input, .field select {
       border: 1px solid var(--line);
       border-radius: 12px;
       min-height: 44px;
@@ -182,13 +169,6 @@
       margin-top: 12px;
       color: var(--muted);
       font-size: 15px;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 12px;
-      align-items: start;
     }
 
     .preview-wrap { display: grid; gap: 12px; }
@@ -254,7 +234,7 @@
       color: var(--green);
     }
 
-    .state-badge.warn { background: var(--red-soft); color: var(--red); }
+    .state-badge.warn { background: #fdecea; color: var(--red); }
 
     .card-bottom {
       margin-top: 14px;
@@ -279,77 +259,27 @@
       border: 5px solid #fff;
     }
 
-    .tools-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .tool-card {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 14px;
-      background: var(--surface-2);
-      display: grid;
-      gap: 10px;
-    }
-
-    .tool-title {
+    .tools {
       margin: 0;
-      font-family: 'Alexandria', sans-serif;
-      font-size: 20px;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
     }
 
-    .tool-out {
-      border: 1px dashed #e0d3ba;
-      border-radius: 12px;
-      background: #fff;
-      padding: 10px;
-      font-size: 15px;
-      line-height: 1.7;
-      color: #51493b;
-    }
-
-    .badge {
-      display: inline-flex;
-      width: fit-content;
-      align-items: center;
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 800;
-      border: 1px solid transparent;
-    }
-
-    .b-low { background: var(--red-soft); color: var(--red); border-color: #f3c8c8; }
-    .b-range { background: var(--green-soft); color: var(--green); border-color: #b8e1c7; }
-    .b-slight { background: var(--amber-soft); color: var(--amber); border-color: #efd39f; }
-    .b-high { background: #ffe7d8; color: #ba5f11; border-color: #f0c4a0; }
-    .b-vhigh { background: #ffe2e2; color: #a22f2f; border-color: #ecb8b8; }
-
-    details.resource {
+    .tools a {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
       border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #fff;
+      border-radius: 12px;
       padding: 12px;
+      background: var(--surface-2);
+      font-weight: 700;
     }
 
-    details.resource summary {
-      cursor: pointer;
-      font-weight: 800;
-      color: #4b412f;
-    }
-
-    details.resource p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 15px;
-    }
-
-    @media (max-width: 920px) {
-      .layout { grid-template-columns: 1fr; }
-      .tools-grid { grid-template-columns: 1fr; }
+    @media (max-width: 860px) {
+      .content { grid-template-columns: 1fr; }
       .grid { grid-template-columns: 1fr; }
       .patient-card { min-height: 300px; }
       .mini { max-width: 60%; }
@@ -362,130 +292,66 @@
       <section class="hero">
         <div class="logo"><span>🌾</span> CarbMind</div>
         <h1>واجهة مريحة لكم… وتنظيم أوضح لسكري طفلك</h1>
-        <p>هنا مو مجرد حاسبة. كارب مايند يعطيكم فهم سريع للقراءة، واقتراحات واضحة تساعدكم تتصرفون بهدوء.</p>
+        <p>من أول يوم تشخيص إلى الروتين اليومي، كارب مايند يساعدكم تفهمون الأرقام والكارب بهدوء وبطريقة بسيطة.</p>
       </section>
 
       <section class="content">
-        <section class="layout">
-          <article class="panel">
-            <h2>بطاقة المريض القابلة للمشاركة</h2>
-            <p class="panel-note">اكتب البيانات الأساسية، وخذ بطاقة جميلة جاهزة للمشاركة في العائلة أو واتساب. وتقدر تصدّرها PNG مباشرة.</p>
-            <div class="grid">
-              <div class="field">
-                <label for="patientName">اسم المريض</label>
-                <input id="patientName" type="text" value="سلمان" />
-              </div>
-              <div class="field">
-                <label for="patientAge">العمر</label>
-                <input id="patientAge" type="number" min="1" max="99" value="10" />
-              </div>
-              <div class="field">
-                <label for="patientGlucose">آخر قراءة سكر (mg/dL)</label>
-                <input id="patientGlucose" type="number" min="40" max="500" value="136" />
-              </div>
-              <div class="field">
-                <label for="statusSelect">الحالة العامة</label>
-                <select id="statusSelect">
-                  <option value="مستقر" selected>مستقر</option>
-                  <option value="يحتاج متابعة">يحتاج متابعة</option>
-                </select>
-              </div>
+        <article class="panel">
+          <h2>بطاقة المريض القابلة للمشاركة</h2>
+          <p class="panel-note">اكتب البيانات الأساسية، وخذ بطاقة جميلة جاهزة للمشاركة في العائلة أو المجموعات. وتقدر تصدّرها PNG مباشرة.</p>
+
+          <div class="grid">
+            <div class="field">
+              <label for="patientName">اسم المريض</label>
+              <input id="patientName" type="text" value="سلمان" />
             </div>
-
-            <p class="status" id="liveStatus">الحالة الآن: ممتازة ✅</p>
-
-            <div class="actions">
-              <button class="btn primary" id="shareBtn" type="button">مشاركة البطاقة</button>
-              <button class="btn ghost" id="resetBtn" type="button">إعادة الضبط</button>
+            <div class="field">
+              <label for="patientAge">العمر</label>
+              <input id="patientAge" type="number" min="1" max="99" value="10" />
             </div>
-          </article>
-
-          <aside class="preview-wrap">
-            <section class="patient-card" id="patientCard">
-              <div class="tag">بطاقة مريض • CarbMind</div>
-              <h3 class="patient-name" id="previewName">سلمان</h3>
-              <p class="patient-meta" id="previewMeta">العمر: 10 سنوات • آخر قراءة: 136 mg/dL</p>
-              <div class="state-badge" id="previewBadge">الحالة: مستقرة</div>
-              <div class="card-bottom">
-                <p class="mini">جاهزة للمشاركة السريعة مع الأهل والمشرفين.</p>
-                <canvas id="qrCanvas" width="180" height="180" aria-label="QR"></canvas>
-              </div>
-            </section>
-          </aside>
-        </section>
-
-        <section class="panel">
-          <h2>أدوات كارب مايند الذكية</h2>
-          <p class="panel-note">أربع أدوات بسيطة تساعدكم على الفهم والقرار اليومي بشكل أوضح.</p>
-          <div class="tools-grid">
-            <article class="tool-card">
-              <h3 class="tool-title">1) السكري وأرقامه</h3>
-              <div class="field">
-                <label for="insightGlucose">أدخل قراءة السكر</label>
-                <input id="insightGlucose" type="number" min="40" max="500" value="136" />
-              </div>
-              <div class="badge b-range" id="insightBadge">داخل النطاق</div>
-              <div class="tool-out" id="insightResult">قراءتك داخل النطاق — ممتاز، استمروا على نفس الخطة.</div>
-              <div class="tool-out" id="insightGuide">نصيحة هادئة: استمروا على المتابعة المعتادة، وراجعي القراءة القادمة بعد الوجبة.</div>
-            </article>
-
-            <article class="tool-card">
-              <h3 class="tool-title">2) معامل الكارب</h3>
-              <div class="grid">
-                <div class="field">
-                  <label for="ratioCarbs">إجمالي الكارب (جرام)</label>
-                  <input id="ratioCarbs" type="number" min="1" value="50" />
-                </div>
-                <div class="field">
-                  <label for="ratioUnits">وحدات الإنسولين</label>
-                  <input id="ratioUnits" type="number" min="0.5" step="0.5" value="5" />
-                </div>
-              </div>
-              <div class="tool-out" id="ratioResult">المعامل التقريبي: 1 وحدة لكل 10 جرام كارب</div>
-              <div class="tool-out" id="ratioExplain">هذا تقدير مبدئي يساعدكم في المتابعة اليومية. التثبيت النهائي يكون مع الفريق الطبي.</div>
-            </article>
-
-            <article class="tool-card">
-              <h3 class="tool-title">3) حساب كارب الوجبة</h3>
-              <div class="grid">
-                <div class="field">
-                  <label for="mealGlucose">السكر الحالي</label>
-                  <input id="mealGlucose" type="number" min="40" max="500" value="210" />
-                </div>
-                <div class="field">
-                  <label for="mealCarbs">كارب الوجبة (جرام)</label>
-                  <input id="mealCarbs" type="number" min="0" value="48" />
-                </div>
-                <div class="field">
-                  <label for="mealRatio">معامل الكارب الشخصي</label>
-                  <input id="mealRatio" type="number" min="1" step="0.5" value="12" />
-                </div>
-                <div class="field">
-                  <label for="mealFactor">معامل التصحيح</label>
-                  <input id="mealFactor" type="number" min="10" step="1" value="50" />
-                </div>
-              </div>
-              <div class="tool-out" id="mealResult">جرعة الوجبة: 4.0 وحدات<br>جرعة تصحيح: 1.8 وحدة<br>الإجمالي المقترح: 5.8 وحدات</div>
-              <div class="tool-out" id="mealExplain">التوضيح: حسبنا جرعة الوجبة من الكارب، ثم أضفنا جرعة تصحيح لأن القراءة أعلى من الهدف (120).</div>
-            </article>
-
-            <article class="tool-card">
-              <h3 class="tool-title">4) ملفات مفيدة للأهل</h3>
-              <details class="resource">
-                <summary>كيف أتعامل مع هبوط السكر</summary>
-                <p>إذا القراءة منخفضة، أعطي 15 جرام سكر سريع (مثل عصير أو جلوكوز)، انتظري 15 دقيقة ثم أعيدي القياس. إذا بقي منخفض، كرري نفس الخطوة.</p>
-              </details>
-              <details class="resource">
-                <summary>ماذا أفعل إذا ارتفع السكر</summary>
-                <p>شيكي على الجرعة ووقت آخر أكل، وقدّمي ماء كفاية. إذا الارتفاع مستمر أو مع أعراض تعب قوية، اتصلي بالفريق الطبي فوراً.</p>
-              </details>
-              <details class="resource">
-                <summary>أساسيات حساب الكارب</summary>
-                <p>ابدئي بوزن الوجبة أو قراءة البطاقة الغذائية، احسبي مجموع الكارب فقط، وبعدها استخدمي معامل طفلك لتحديد جرعة الوجبة.</p>
-              </details>
-            </article>
+            <div class="field">
+              <label for="glucose">آخر قراءة سكر (mg/dL)</label>
+              <input id="glucose" type="number" min="40" max="500" value="136" />
+            </div>
+            <div class="field">
+              <label for="statusSelect">الحالة العامة</label>
+              <select id="statusSelect">
+                <option value="مستقر" selected>مستقر</option>
+                <option value="يحتاج متابعة">يحتاج متابعة</option>
+              </select>
+            </div>
           </div>
-        </section>
+
+          <p class="status" id="liveStatus">الحالة الآن: ممتازة ✅</p>
+
+          <div class="actions">
+            <button class="btn primary" id="exportBtn" type="button">تصدير البطاقة PNG</button>
+            <button class="btn ghost" id="resetBtn" type="button">إعادة الضبط</button>
+          </div>
+        </article>
+
+        <aside class="preview-wrap">
+          <section class="patient-card" id="patientCard">
+            <div class="tag">بطاقة مريض • CarbMind</div>
+            <h3 class="patient-name" id="previewName">سلمان</h3>
+            <p class="patient-meta" id="previewMeta">العمر: 10 سنوات • آخر قراءة: 136</p>
+            <div class="state-badge" id="previewBadge">الحالة: مستقرة</div>
+            <div class="card-bottom">
+              <p class="mini">للمتابعة اليومية والنصائح: carbmind.app</p>
+              <canvas id="qrCanvas" width="180" height="180" aria-label="QR"></canvas>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>الأدوات السريعة</h2>
+            <ul class="tools">
+              <li><a href="numbers.html">📊 السكري وأرقامه</a></li>
+              <li><a href="ratio.html">🧮 معامل الكارب</a></li>
+              <li><a href="meal.html">🍽️ حساب كارب الوجبة</a></li>
+              <li><a href="files.html">📂 ملفات مفيدة للأهل</a></li>
+            </ul>
+          </section>
+        </aside>
       </section>
     </main>
   </div>
@@ -495,7 +361,7 @@
     const fields = {
       name: document.getElementById('patientName'),
       age: document.getElementById('patientAge'),
-      glucose: document.getElementById('patientGlucose'),
+      glucose: document.getElementById('glucose'),
       status: document.getElementById('statusSelect')
     };
 
@@ -507,9 +373,10 @@
     };
 
     const qrCanvas = document.getElementById('qrCanvas');
-    new QRious({
+    const qrLink = 'https://carbmind.app';
+    const qr = new QRious({
       element: qrCanvas,
-      value: 'https://carbmind.app',
+      value: qrLink,
       size: 180,
       background: 'white',
       foreground: '#2f2a1f'
@@ -549,6 +416,7 @@
       gradient.addColorStop(0, '#d8b26a');
       gradient.addColorStop(0.55, '#b07728');
       gradient.addColorStop(1, '#8d5c1f');
+
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -572,14 +440,14 @@
 
       const warn = preview.badge.classList.contains('warn');
       ctx.fillStyle = warn ? '#ffe6e1' : '#e8f4eb';
-      ctx.fillRect(620, 510, 350, 92);
+      ctx.fillRect(640, 510, 330, 92);
       ctx.fillStyle = warn ? '#a63131' : '#2f8a59';
       ctx.font = '800 44px Tajawal';
       ctx.fillText(preview.badge.textContent, 950, 570);
 
       ctx.fillStyle = 'rgba(255,255,255,0.95)';
       ctx.font = '700 38px Tajawal';
-      ctx.fillText('جاهزة للمشاركة السريعة مع الأهل والمشرفين', 970, 1150);
+      ctx.fillText('للمتابعة اليومية والنصائح: carbmind.app', 970, 1150);
 
       ctx.fillStyle = '#fff';
       ctx.fillRect(770, 920, 210, 210);
@@ -591,115 +459,7 @@
       link.click();
     }
 
-    const insightInput = document.getElementById('insightGlucose');
-    const insightBadge = document.getElementById('insightBadge');
-    const insightResult = document.getElementById('insightResult');
-    const insightGuide = document.getElementById('insightGuide');
-
-    function glucoseInsight() {
-      const value = Number(insightInput.value || 0);
-      let state = {
-        text: 'داخل النطاق',
-        badgeClass: 'b-range',
-        explain: 'القراءة ضمن النطاق المناسب الآن.',
-        guide: 'استمروا على نفس الروتين مع متابعة القراءة القادمة.'
-      };
-
-      if (value < 70) {
-        state = {
-          text: 'منخفض',
-          badgeClass: 'b-low',
-          explain: 'القراءة منخفضة الآن وتحتاج تدخل سريع.',
-          guide: 'نصيحة هادئة: قدّمي سكر سريع وأعيدي القياس بعد 15 دقيقة.'
-        };
-      } else if (value <= 140) {
-        state = {
-          text: 'داخل النطاق',
-          badgeClass: 'b-range',
-          explain: 'القراءة ضمن النطاق المناسب الآن.',
-          guide: 'نصيحة هادئة: ممتاز، استمروا على الخطة الحالية.'
-        };
-      } else if (value <= 180) {
-        state = {
-          text: 'مرتفعة قليلاً',
-          badgeClass: 'b-slight',
-          explain: 'القراءة مرتفعة قليلاً — غالبًا تحتاج متابعة.',
-          guide: 'نصيحة هادئة: يفضل متابعة الجرعة القادمة وقياس جديد خلال ساعتين.'
-        };
-      } else if (value <= 250) {
-        state = {
-          text: 'مرتفعة',
-          badgeClass: 'b-high',
-          explain: 'القراءة مرتفعة وتحتاج انتباه.',
-          guide: 'نصيحة هادئة: تأكدي من خطة التصحيح وشرب الماء والقياس لاحقًا.'
-        };
-      } else {
-        state = {
-          text: 'مرتفعة جدًا',
-          badgeClass: 'b-vhigh',
-          explain: 'القراءة مرتفعة جدًا وتحتاج متابعة أقرب.',
-          guide: 'نصيحة هادئة: ابدؤوا بخطة التصحيح المتفق عليها وتواصلوا طبيًا إذا استمر الارتفاع.'
-        };
-      }
-
-      insightBadge.className = `badge ${state.badgeClass}`;
-      insightBadge.textContent = state.text;
-      insightResult.textContent = state.explain;
-      insightGuide.textContent = state.guide;
-    }
-
-    const ratioCarbs = document.getElementById('ratioCarbs');
-    const ratioUnits = document.getElementById('ratioUnits');
-    const ratioResult = document.getElementById('ratioResult');
-    const ratioExplain = document.getElementById('ratioExplain');
-
-    function ratioCalculator() {
-      const carbs = Number(ratioCarbs.value || 0);
-      const units = Number(ratioUnits.value || 0);
-
-      if (carbs <= 0 || units <= 0) {
-        ratioResult.textContent = 'الرجاء إدخال قيم صحيحة للحساب.';
-        ratioExplain.textContent = 'مثال: 60 جرام كارب مع 6 وحدات = 1 لكل 10.';
-        return;
-      }
-
-      const ratio = (carbs / units).toFixed(1);
-      ratioResult.textContent = `المعامل التقريبي: 1 وحدة لكل ${ratio} جرام كارب`;
-      ratioExplain.textContent = 'هذا رقم إرشادي يساعدكم يوميًا. عدّلوا الخطة دائمًا حسب توجيه الطبيب.';
-    }
-
-    const mealGlucose = document.getElementById('mealGlucose');
-    const mealCarbs = document.getElementById('mealCarbs');
-    const mealRatio = document.getElementById('mealRatio');
-    const mealFactor = document.getElementById('mealFactor');
-    const mealResult = document.getElementById('mealResult');
-    const mealExplain = document.getElementById('mealExplain');
-
-    function mealEstimator() {
-      const current = Number(mealGlucose.value || 0);
-      const carbs = Number(mealCarbs.value || 0);
-      const ratio = Number(mealRatio.value || 0);
-      const factor = Number(mealFactor.value || 0);
-      const target = 120;
-
-      if (ratio <= 0 || factor <= 0 || carbs < 0 || current <= 0) {
-        mealResult.innerHTML = 'أكمل البيانات بشكل صحيح لحساب الجرعة.';
-        mealExplain.textContent = 'تأكد من إدخال القراءة الحالية، كارب الوجبة، معامل الكارب، ومعامل التصحيح.';
-        return;
-      }
-
-      const mealBolus = carbs / ratio;
-      const correction = Math.max(0, (current - target) / factor);
-      const total = mealBolus + correction;
-
-      mealResult.innerHTML = `جرعة الوجبة: ${mealBolus.toFixed(1)} وحدات<br>جرعة تصحيح: ${correction.toFixed(1)} وحدة<br>الإجمالي المقترح: ${total.toFixed(1)} وحدات`;
-      mealExplain.textContent = correction > 0
-        ? 'حسبنا جرعة الوجبة من الكارب، ثم أضفنا تصحيح لأن القراءة أعلى من الهدف (120).'
-        : 'حسبنا جرعة الوجبة فقط لأن القراءة قريبة من الهدف ولا تحتاج تصحيح إضافي.';
-    }
-
     Object.values(fields).forEach((input) => input.addEventListener('input', updatePreview));
-    document.getElementById('shareBtn').addEventListener('click', exportCardAsPng);
 
     document.getElementById('resetBtn').addEventListener('click', () => {
       fields.name.value = 'سلمان';
@@ -709,14 +469,9 @@
       updatePreview();
     });
 
-    [insightInput].forEach((el) => el.addEventListener('input', glucoseInsight));
-    [ratioCarbs, ratioUnits].forEach((el) => el.addEventListener('input', ratioCalculator));
-    [mealGlucose, mealCarbs, mealRatio, mealFactor].forEach((el) => el.addEventListener('input', mealEstimator));
+    document.getElementById('exportBtn').addEventListener('click', exportCardAsPng);
 
     updatePreview();
-    glucoseInsight();
-    ratioCalculator();
-    mealEstimator();
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
