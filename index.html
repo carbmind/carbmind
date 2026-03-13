@@ -4,751 +4,474 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CarbMind | كارب مايند</title>
-  <meta name="description" content="كارب مايند يساعد الأهل في فهم قراءة السكر والكارب بخطوات بسيطة وواضحة." />
-  <meta name="theme-color" content="#4C8B33" />
+  <meta name="description" content="كارب مايند يساعد مرضى السكري والأهل في تنظيم الكارب والجرعة والأرقام اليومية ببساطة." />
+  <meta name="theme-color" content="#c48b33" />
   <link rel="manifest" href="manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #F7F6F3;
-      --surface: #FFFFFF;
-      --primary: #4C8B33;
-      --accent: #9C6821;
-      --text: #2F2A1F;
-      --line: #E7E2D8;
-      --muted: #6F6A5F;
-      --success: #2f8a59;
-      --success-soft: #e8f4eb;
-      --warn: #bd5f1b;
-      --warn-soft: #fff0e2;
-      --danger: #b64646;
-      --danger-soft: #fce9e9;
-      --shadow: 0 6px 20px rgba(0,0,0,0.05);
+      --bg: #fbf7ef;
+      --surface: #fffdf9;
+      --surface-2: #f7f2e7;
+      --line: #eadfca;
+      --text: #2f2a1f;
+      --muted: #6f6656;
+      --brand: #c48b33;
+      --brand-dark: #9c6821;
+      --brand-soft: #f6e6c9;
+      --green: #2f8a59;
+      --green-soft: #e8f4eb;
+      --red: #c84f4f;
+      --shadow: 0 18px 42px rgba(71, 51, 20, 0.12);
     }
 
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: 'Tajawal', sans-serif;
       color: var(--text);
-      background: var(--bg);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(196, 139, 51, 0.14), transparent 26%),
+        radial-gradient(circle at 90% 0%, rgba(244, 225, 183, 0.5), transparent 20%),
+        var(--bg);
     }
-
-    .splash {
-      position: fixed;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      z-index: 30;
-      background: var(--bg);
-      transition: opacity .5s ease, visibility .5s ease;
-    }
-
-    .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-
-    .splash-inner { text-align: center; display: grid; gap: 10px; }
-
-    .splash-logo {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto;
-      border-radius: 20px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      display: grid;
-      place-items: center;
-      font-size: 34px;
-    }
-
-    .splash-title { margin: 0; font: 800 28px 'Alexandria', sans-serif; }
-    .splash-sub { margin: 0; color: var(--muted); font-size: 18px; }
-
-    .app {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity .45s ease, transform .45s ease;
-    }
-
-    .app.ready { opacity: 1; transform: translateY(0); }
 
     .page {
-      width: min(100% - 20px, 1100px);
+      width: min(100% - 18px, 1100px);
       margin-inline: auto;
-      padding: 14px 0 30px;
+      padding: 12px 0 28px;
     }
 
     .shell {
-      background: var(--surface);
+      background: linear-gradient(180deg, #fffefb 0%, #f9f5ec 100%);
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 28px;
       box-shadow: var(--shadow);
       overflow: hidden;
     }
 
     .hero {
-      padding: 24px 16px;
+      padding: 22px 14px;
       text-align: center;
       border-bottom: 1px solid var(--line);
-      background: #fcfbf8;
-      display: grid;
-      gap: 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(247, 240, 225, 0.95));
     }
 
     .logo {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      margin-inline: auto;
+      gap: 10px;
       padding: 10px 16px;
       border-radius: 999px;
       border: 1px solid var(--line);
       background: var(--surface);
-      font: 800 22px 'Alexandria', sans-serif;
+      font-family: 'Alexandria', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
     }
 
-    .logo-sub { margin: 0; color: var(--accent); font-weight: 700; }
-    .welcome { margin: 0; color: var(--primary); font-weight: 800; font-size: 18px; }
+    .logo span { font-size: 20px; }
 
     .hero h1 {
-      margin: 0;
-      font: 800 clamp(28px, 7vw, 46px) 'Alexandria', sans-serif;
-      line-height: 1.25;
+      margin: 16px auto 10px;
+      font-family: 'Alexandria', sans-serif;
+      font-size: clamp(30px, 8vw, 52px);
+      line-height: 1.2;
+      max-width: 760px;
     }
 
-    .hero p { margin: 0; color: var(--muted); font-size: clamp(17px, 4.2vw, 22px); line-height: 1.75; }
+    .hero p {
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: clamp(18px, 4.5vw, 25px);
+      line-height: 1.75;
+      max-width: 760px;
+    }
 
-    .content { display: grid; grid-template-columns: 1fr; gap: 16px; padding: 16px; }
+    .content {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 16px;
+      padding: 16px;
+    }
 
     .panel {
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 22px;
       background: var(--surface);
-      padding: 18px;
-      box-shadow: var(--shadow);
+      padding: 16px;
     }
 
-    .panel h2 { margin: 0 0 8px; font: 700 24px 'Alexandria', sans-serif; }
-    .panel-note { margin: 0 0 16px; color: var(--muted); line-height: 1.8; }
+    .panel h2 {
+      margin: 0 0 8px;
+      font-family: 'Alexandria', sans-serif;
+      font-size: 24px;
+    }
 
-    .layout { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 14px; align-items: start; }
-    .preview-wrap { display: grid; gap: 12px; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .panel-note {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
     .field { display: grid; gap: 6px; }
     .field label { font-size: 14px; color: var(--muted); font-weight: 700; }
-
     .field input, .field select {
       border: 1px solid var(--line);
       border-radius: 12px;
-      min-height: 46px;
+      min-height: 44px;
       padding: 0 12px;
-      font: 16px 'Tajawal', sans-serif;
-      color: var(--text);
+      font-family: inherit;
+      font-size: 16px;
       background: #fff;
+      color: var(--text);
     }
 
-    .actions { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
     .btn {
       border: 0;
       border-radius: 12px;
       min-height: 46px;
       padding: 0 16px;
-      font: 800 16px 'Tajawal', sans-serif;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 16px;
       cursor: pointer;
     }
 
-    .btn.update { background: #eef5eb; color: var(--primary); border: 1px solid #d5e6ce; }
-    .btn.refresh { background: #f4eee4; color: var(--accent); border: 1px solid #e8d8bf; }
-    .btn.export { background: var(--primary); color: #fff; box-shadow: var(--shadow); }
-    .btn.share { background: #fff; color: var(--primary); border: 1px solid #d5e6ce; width: 100%; }
+    .btn.primary {
+      color: #fff;
+      background: linear-gradient(180deg, var(--brand), var(--brand-dark));
+    }
 
-    .status { margin-top: 12px; color: var(--muted); font-size: 15px; }
+    .btn.ghost {
+      color: var(--brand-dark);
+      background: var(--brand-soft);
+      border: 1px solid #e5cfaa;
+    }
+
+    .status {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .preview-wrap { display: grid; gap: 12px; }
 
     .patient-card {
       position: relative;
-      min-height: 360px;
-      border-radius: 16px;
+      min-height: 320px;
+      border-radius: 26px;
       padding: 18px;
-      background: linear-gradient(145deg, #5f9d46 0%, #4C8B33 62%, #3f742a 100%);
+      background:
+        radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0.4), transparent 45%),
+        linear-gradient(135deg, #d8b26a, #b07728 55%, #8d5c1f 100%);
       color: #fff;
       overflow: hidden;
-      box-shadow: var(--shadow);
-      display: grid;
-      align-content: start;
-      gap: 10px;
+      box-shadow: 0 14px 30px rgba(90, 58, 18, 0.28);
     }
 
     .patient-card::after {
       content: "";
       position: absolute;
-      width: 220px;
-      height: 220px;
+      inset: auto -60px -80px auto;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
-      left: -80px;
-      bottom: -90px;
-      background: rgba(156, 104, 33, 0.22);
+      background: rgba(255,255,255,0.12);
     }
 
-    .card-brand { margin: 0; font: 800 20px 'Alexandria', sans-serif; }
-    .card-brand-sub { margin: 0; font-size: 14px; opacity: .95; }
-    .card-line { margin: 0; font-size: 17px; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .patient-name {
+      margin: 14px 0 4px;
+      font-family: 'Alexandria', sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .patient-meta {
+      margin: 0;
+      font-size: 17px;
+      opacity: 0.95;
+    }
 
     .state-badge {
+      margin-top: 12px;
       display: inline-flex;
-      width: fit-content;
-      border-radius: 999px;
+      align-items: center;
+      border-radius: 12px;
       padding: 8px 12px;
-      background: var(--success-soft);
-      color: var(--success);
       font-weight: 800;
-      font-size: 14px;
+      font-size: 15px;
+      background: var(--green-soft);
+      color: var(--green);
     }
 
-    .state-badge.warn { background: var(--danger-soft); color: var(--danger); }
+    .state-badge.warn { background: #fdecea; color: var(--red); }
 
     .card-bottom {
-      margin-top: auto;
+      margin-top: 14px;
       display: flex;
       align-items: end;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
+    }
+
+    .mini {
+      max-width: 56%;
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(255,255,255,.9);
     }
 
     #qrCanvas {
-      width: 86px;
-      height: 86px;
+      width: 82px;
+      height: 82px;
       border-radius: 10px;
-      border: 4px solid #fff;
       background: #fff;
+      border: 5px solid #fff;
     }
 
-    .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-    .tool-card {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      background: #fff;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    .tools {
+      margin: 0;
+      padding: 0;
+      list-style: none;
       display: grid;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .tool-title { margin: 0; font: 700 20px 'Alexandria', sans-serif; }
-
-    .tool-out {
-      border: 1px dashed var(--line);
-      border-radius: 12px;
-      background: #fdfcf9;
-      padding: 12px;
-      line-height: 1.7;
-      color: #51493b;
-    }
-
-    .badge {
-      display: inline-flex;
-      width: fit-content;
-      align-items: center;
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 800;
-      border: 1px solid transparent;
-    }
-
-    .b-low { background: var(--danger-soft); color: var(--danger); border-color: #f3c8c8; }
-    .b-range { background: var(--success-soft); color: var(--success); border-color: #b8e1c7; }
-    .b-slight { background: #f3eadf; color: var(--accent); border-color: #e8d7c1; }
-    .b-high { background: var(--warn-soft); color: var(--warn); border-color: #f0d1ae; }
-    .b-vhigh { background: #fbe6e6; color: #a73434; border-color: #efbebe; }
-
-    details.resource {
+    .tools a {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
       border: 1px solid var(--line);
       border-radius: 12px;
-      background: #fff;
       padding: 12px;
+      background: var(--surface-2);
+      font-weight: 700;
     }
 
-    details.resource summary { cursor: pointer; font-weight: 800; color: #4b412f; }
-    details.resource p { margin: 10px 0 0; color: var(--muted); line-height: 1.8; }
-
-    @media (max-width: 920px) {
-      .layout, .tools-grid, .grid { grid-template-columns: 1fr; }
+    @media (max-width: 860px) {
+      .content { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .patient-card { min-height: 300px; }
+      .mini { max-width: 60%; }
     }
   </style>
 </head>
 <body>
-  <div id="splash" class="splash" aria-live="polite">
-    <div class="splash-inner">
-      <div class="splash-logo">🌾</div>
-      <h1 class="splash-title">CarbMind</h1>
-      <p class="splash-sub">نرتّب السكري سوا</p>
-    </div>
-  </div>
+  <div class="page">
+    <main class="shell">
+      <section class="hero">
+        <div class="logo"><span>🌾</span> CarbMind</div>
+        <h1>واجهة مريحة لكم… وتنظيم أوضح لسكري طفلك</h1>
+        <p>من أول يوم تشخيص إلى الروتين اليومي، كارب مايند يساعدكم تفهمون الأرقام والكارب بهدوء وبطريقة بسيطة.</p>
+      </section>
 
-  <div id="app" class="app">
-    <div class="page">
-      <main class="shell">
-        <section class="hero">
-          <div class="logo">🌾 CarbMind</div>
-          <p class="logo-sub">نرتّب السكري سوا</p>
-          <p class="welcome" id="welcomeMessage">هلا والله فييك في كارب مايند</p>
-          <h1>واجهة مريحة لكم… وتنظيم أوضح لسكري طفلك</h1>
-          <p>هنا مو مجرد حاسبة. كارب مايند يعطيكم فهم سريع للقراءة، واقتراحات واضحة تساعدكم تتصرفون بهدوء.</p>
-        </section>
+      <section class="content">
+        <article class="panel">
+          <h2>بطاقة المريض القابلة للمشاركة</h2>
+          <p class="panel-note">اكتب البيانات الأساسية، وخذ بطاقة جميلة جاهزة للمشاركة في العائلة أو المجموعات. وتقدر تصدّرها PNG مباشرة.</p>
 
-        <section class="content">
-          <section class="layout">
-            <article class="panel">
-              <h2>بطاقة المشاركة</h2>
-              <p class="panel-note">حدث البيانات واحفظها تلقائيًا، وبعدها صدّر بطاقتك أو شاركها مباشرة إذا الجهاز يدعم.</p>
-              <div class="grid">
-                <div class="field">
-                  <label for="patientName">الاسم</label>
-                  <input id="patientName" type="text" value="عزيز" />
-                </div>
-                <div class="field">
-                  <label for="patientGlucose">آخر قراءة سكر (mg/dL)</label>
-                  <input id="patientGlucose" type="number" min="40" max="500" value="136" />
-                </div>
-                <div class="field">
-                  <label for="statusSelect">حالة السكر</label>
-                  <select id="statusSelect">
-                    <option value="مستقر" selected>مستقر</option>
-                    <option value="يحتاج متابعة">يحتاج متابعة</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="cardRatio">معامل الكارب</label>
-                  <input id="cardRatio" type="number" min="1" step="0.5" placeholder="مثال: 10" />
-                </div>
-              </div>
+          <div class="grid">
+            <div class="field">
+              <label for="patientName">اسم المريض</label>
+              <input id="patientName" type="text" value="سلمان" />
+            </div>
+            <div class="field">
+              <label for="patientAge">العمر</label>
+              <input id="patientAge" type="number" min="1" max="99" value="10" />
+            </div>
+            <div class="field">
+              <label for="glucose">آخر قراءة سكر (mg/dL)</label>
+              <input id="glucose" type="number" min="40" max="500" value="136" />
+            </div>
+            <div class="field">
+              <label for="statusSelect">الحالة العامة</label>
+              <select id="statusSelect">
+                <option value="مستقر" selected>مستقر</option>
+                <option value="يحتاج متابعة">يحتاج متابعة</option>
+              </select>
+            </div>
+          </div>
 
-              <p class="status" id="liveStatus">الحالة الآن: ممتازة ✅</p>
+          <p class="status" id="liveStatus">الحالة الآن: ممتازة ✅</p>
 
-              <div class="actions">
-                <button class="btn update" id="updateBtn" type="button">تحديث البيانات</button>
-                <button class="btn refresh" id="refreshBtn" type="button">تجديد البيانات</button>
-                <button class="btn export" id="exportBtn" type="button">تصدير بطاقتك</button>
-              </div>
-            </article>
+          <div class="actions">
+            <button class="btn primary" id="exportBtn" type="button">تصدير البطاقة PNG</button>
+            <button class="btn ghost" id="resetBtn" type="button">إعادة الضبط</button>
+          </div>
+        </article>
 
-            <aside class="preview-wrap">
-              <section class="patient-card" id="patientCard">
-                <h3 class="card-brand">CarbMind</h3>
-                <p class="card-brand-sub">نرتّب السكري سوا</p>
-                <p class="card-line" id="previewName">الاسم: عزيز</p>
-                <p class="card-line" id="previewGlucose">قراءة السكر: 136 mg/dL</p>
-                <div class="state-badge" id="previewBadge">حالة السكر: مستقر</div>
-                <p class="card-line" id="previewTime">وقت آخر قراءة: --</p>
-                <p class="card-line" id="previewRatio">معامل الكارب: غير محدد بعد</p>
-                <div class="card-bottom">
-                  <button class="btn share" id="shareBtn" type="button" hidden>مشاركة البطاقة</button>
-                  <canvas id="qrCanvas" width="180" height="180" aria-label="QR"></canvas>
-                </div>
-              </section>
-            </aside>
+        <aside class="preview-wrap">
+          <section class="patient-card" id="patientCard">
+            <div class="tag">بطاقة مريض • CarbMind</div>
+            <h3 class="patient-name" id="previewName">سلمان</h3>
+            <p class="patient-meta" id="previewMeta">العمر: 10 سنوات • آخر قراءة: 136</p>
+            <div class="state-badge" id="previewBadge">الحالة: مستقرة</div>
+            <div class="card-bottom">
+              <p class="mini">للمتابعة اليومية والنصائح: carbmind.app</p>
+              <canvas id="qrCanvas" width="180" height="180" aria-label="QR"></canvas>
+            </div>
           </section>
 
           <section class="panel">
-            <h2>أدوات كارب مايند الذكية</h2>
-            <p class="panel-note">أربع أدوات بسيطة تساعدكم على الفهم والقرار اليومي بشكل أوضح.</p>
-            <div class="tools-grid">
-              <article class="tool-card">
-                <h3 class="tool-title">1) السكري وأرقامه</h3>
-                <div class="field">
-                  <label for="insightGlucose">أدخل قراءة السكر</label>
-                  <input id="insightGlucose" type="number" min="40" max="500" value="136" />
-                </div>
-                <div class="badge b-range" id="insightBadge">داخل النطاق</div>
-                <div class="tool-out" id="insightResult">قراءتك داخل النطاق — ممتاز، استمروا على نفس الخطة.</div>
-                <div class="tool-out" id="insightGuide">نصيحة هادئة: استمروا على المتابعة المعتادة، وراجعي القراءة القادمة بعد الوجبة.</div>
-              </article>
-
-              <article class="tool-card">
-                <h3 class="tool-title">2) معامل الكارب</h3>
-                <div class="grid">
-                  <div class="field">
-                    <label for="ratioCarbs">إجمالي الكارب (جرام)</label>
-                    <input id="ratioCarbs" type="number" min="1" value="50" />
-                  </div>
-                  <div class="field">
-                    <label for="ratioUnits">وحدات الإنسولين</label>
-                    <input id="ratioUnits" type="number" min="0.5" step="0.5" value="5" />
-                  </div>
-                </div>
-                <div class="tool-out" id="ratioResult">المعامل التقريبي: 1 وحدة لكل 10 جرام كارب</div>
-                <div class="tool-out" id="ratioExplain">هذا تقدير مبدئي يساعدكم في المتابعة اليومية. التثبيت النهائي يكون مع الفريق الطبي.</div>
-              </article>
-
-              <article class="tool-card">
-                <h3 class="tool-title">3) حساب كارب الوجبة</h3>
-                <div class="grid">
-                  <div class="field">
-                    <label for="mealGlucose">السكر الحالي</label>
-                    <input id="mealGlucose" type="number" min="40" max="500" value="210" />
-                  </div>
-                  <div class="field">
-                    <label for="mealCarbs">كارب الوجبة (جرام)</label>
-                    <input id="mealCarbs" type="number" min="0" value="48" />
-                  </div>
-                  <div class="field">
-                    <label for="mealRatio">معامل الكارب الشخصي</label>
-                    <input id="mealRatio" type="number" min="1" step="0.5" value="12" />
-                  </div>
-                  <div class="field">
-                    <label for="mealFactor">معامل التصحيح</label>
-                    <input id="mealFactor" type="number" min="10" step="1" value="50" />
-                  </div>
-                </div>
-                <div class="tool-out" id="mealResult">جرعة الوجبة: 4.0 وحدات<br>جرعة تصحيح: 1.8 وحدة<br>الإجمالي المقترح: 5.8 وحدات</div>
-                <div class="tool-out" id="mealExplain">التوضيح: حسبنا جرعة الوجبة من الكارب، ثم أضفنا جرعة تصحيح لأن القراءة أعلى من الهدف (120).</div>
-              </article>
-
-              <article class="tool-card">
-                <h3 class="tool-title">4) ملفات مفيدة للأهل</h3>
-                <details class="resource">
-                  <summary>كيف أتعامل مع هبوط السكر</summary>
-                  <p>إذا القراءة منخفضة، أعطي 15 جرام سكر سريع (مثل عصير أو جلوكوز)، انتظري 15 دقيقة ثم أعيدي القياس. إذا بقي منخفض، كرري نفس الخطوة.</p>
-                </details>
-                <details class="resource">
-                  <summary>ماذا أفعل إذا ارتفع السكر</summary>
-                  <p>شيكي على الجرعة ووقت آخر أكل، وقدّمي ماء كفاية. إذا الارتفاع مستمر أو مع أعراض تعب قوية، اتصلي بالفريق الطبي فوراً.</p>
-                </details>
-                <details class="resource">
-                  <summary>أساسيات حساب الكارب</summary>
-                  <p>ابدئي بوزن الوجبة أو قراءة البطاقة الغذائية، احسبي مجموع الكارب فقط، وبعدها استخدمي معامل طفلك لتحديد جرعة الوجبة.</p>
-                </details>
-              </article>
-            </div>
+            <h2>الأدوات السريعة</h2>
+            <ul class="tools">
+              <li><a href="numbers.html">📊 السكري وأرقامه</a></li>
+              <li><a href="ratio.html">🧮 معامل الكارب</a></li>
+              <li><a href="meal.html">🍽️ حساب كارب الوجبة</a></li>
+              <li><a href="files.html">📂 ملفات مفيدة للأهل</a></li>
+            </ul>
           </section>
-        </section>
-      </main>
-    </div>
+        </aside>
+      </section>
+    </main>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
   <script>
-    const STORAGE_KEY = 'carbmind-user-data-v1';
-    const splash = document.getElementById('splash');
-    const app = document.getElementById('app');
-    const welcomeMessage = document.getElementById('welcomeMessage');
-
-    setTimeout(() => {
-      splash.classList.add('hidden');
-      app.classList.add('ready');
-    }, 2000);
-
     const fields = {
       name: document.getElementById('patientName'),
-      glucose: document.getElementById('patientGlucose'),
-      status: document.getElementById('statusSelect'),
-      ratio: document.getElementById('cardRatio')
+      age: document.getElementById('patientAge'),
+      glucose: document.getElementById('glucose'),
+      status: document.getElementById('statusSelect')
     };
 
     const preview = {
       name: document.getElementById('previewName'),
-      glucose: document.getElementById('previewGlucose'),
+      meta: document.getElementById('previewMeta'),
       badge: document.getElementById('previewBadge'),
-      time: document.getElementById('previewTime'),
-      ratio: document.getElementById('previewRatio'),
       liveStatus: document.getElementById('liveStatus')
     };
 
     const qrCanvas = document.getElementById('qrCanvas');
-    new QRious({
+    const qrLink = 'https://carbmind.app';
+    const qr = new QRious({
       element: qrCanvas,
-      value: 'https://carbmind.app',
+      value: qrLink,
       size: 180,
       background: 'white',
-      foreground: '#2F2A1F'
+      foreground: '#2f2a1f'
     });
-
-    function nowLabel() {
-      return new Date().toLocaleString('ar-SA', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    }
-
-    function greetingByTime(name) {
-      const hour = new Date().getHours();
-      const phrase = hour < 12 ? 'صباحك سعيد' : 'مساءك هدوء';
-      return `هلا والله ${name}، ${phrase}`;
-    }
 
     function evaluateState(glucose, statusText) {
       if (statusText === 'يحتاج متابعة') {
-        return { badge: 'حالة السكر: يحتاج متابعة', ok: false, note: 'الحالة الآن: نحتاج متابعة قريبة ⚠️' };
+        return { badge: 'الحالة: تحتاج متابعة', ok: false, note: 'الحالة الآن: نحتاج متابعة قريبة ⚠️' };
       }
       if (glucose < 80 || glucose > 180) {
-        return { badge: 'حالة السكر: يحتاج متابعة', ok: false, note: 'الحالة الآن: القراءة خارج النطاق المعتاد ⚠️' };
+        return { badge: 'الحالة: تحتاج متابعة', ok: false, note: 'الحالة الآن: القراءة خارج النطاق المعتاد ⚠️' };
       }
-      return { badge: 'حالة السكر: مستقر', ok: true, note: 'الحالة الآن: ممتازة ✅' };
+      return { badge: 'الحالة: مستقرة', ok: true, note: 'الحالة الآن: ممتازة ✅' };
     }
 
-    function updatePreview(lastTime = null) {
+    function updatePreview() {
       const name = fields.name.value.trim() || 'بدون اسم';
+      const age = fields.age.value || '-';
       const glucose = Number(fields.glucose.value || 0);
       const selected = fields.status.value;
-      const ratio = fields.ratio.value ? fields.ratio.value : '';
       const state = evaluateState(glucose, selected);
 
-      preview.name.textContent = `الاسم: ${name}`;
-      preview.glucose.textContent = `قراءة السكر: ${glucose || '-'} mg/dL`;
+      preview.name.textContent = name;
+      preview.meta.textContent = `العمر: ${age} سنوات • آخر قراءة: ${glucose || '-'} mg/dL`;
       preview.badge.textContent = state.badge;
       preview.badge.classList.toggle('warn', !state.ok);
       preview.liveStatus.textContent = state.note;
-      preview.time.textContent = `وقت آخر قراءة: ${lastTime || '--'}`;
-      preview.ratio.textContent = ratio ? `معامل الكارب: ${ratio}` : 'معامل الكارب: غير محدد بعد';
     }
 
-    function saveData() {
-      const payload = {
-        name: fields.name.value.trim() || 'بدون اسم',
-        glucose: fields.glucose.value || '',
-        status: fields.status.value,
-        ratio: fields.ratio.value || '',
-        updatedAt: nowLabel()
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-      updatePreview(payload.updatedAt);
-      welcomeMessage.textContent = greetingByTime(payload.name);
-    }
-
-    function loadData() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) {
-        welcomeMessage.textContent = 'هلا والله فييك في كارب مايند';
-        updatePreview();
-        return;
-      }
-
-      try {
-        const data = JSON.parse(raw);
-        fields.name.value = data.name || '';
-        fields.glucose.value = data.glucose || '';
-        fields.status.value = data.status || 'مستقر';
-        fields.ratio.value = data.ratio || '';
-        updatePreview(data.updatedAt || '--');
-        welcomeMessage.textContent = greetingByTime(data.name || 'أهلًا');
-      } catch {
-        welcomeMessage.textContent = 'هلا والله فييك في كارب مايند';
-        updatePreview();
-      }
-    }
-
-    function buildCardCanvas() {
+    function exportCardAsPng() {
       const canvas = document.createElement('canvas');
       canvas.width = 1080;
       canvas.height = 1350;
       const ctx = canvas.getContext('2d');
 
       const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, '#5f9d46');
-      gradient.addColorStop(0.62, '#4C8B33');
-      gradient.addColorStop(1, '#3f742a');
+      gradient.addColorStop(0, '#d8b26a');
+      gradient.addColorStop(0.55, '#b07728');
+      gradient.addColorStop(1, '#8d5c1f');
+
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = 'rgba(156,104,33,0.22)';
+      ctx.fillStyle = 'rgba(255,255,255,0.12)';
       ctx.beginPath();
-      ctx.arc(140, 1220, 220, 0, Math.PI * 2);
+      ctx.arc(930, 1180, 220, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.direction = 'rtl';
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      ctx.fillRect(90, 90, 420, 76);
+      ctx.font = '700 34px Tajawal';
       ctx.fillStyle = '#fff';
-      ctx.font = '800 72px Alexandria';
-      ctx.fillText('CarbMind', 960, 150);
-      ctx.font = '700 42px Tajawal';
-      ctx.fillText('نرتّب السكري سوا', 960, 210);
+      ctx.direction = 'rtl';
+      ctx.fillText('بطاقة مريض • CarbMind', 470, 140);
 
-      ctx.font = '700 56px Tajawal';
-      ctx.fillText(preview.name.textContent, 960, 360);
-      ctx.fillText(preview.glucose.textContent, 960, 460);
+      ctx.font = '800 96px Alexandria';
+      ctx.fillText(preview.name.textContent, 970, 360);
+
+      ctx.font = '500 46px Tajawal';
+      ctx.fillText(preview.meta.textContent, 970, 450);
 
       const warn = preview.badge.classList.contains('warn');
-      ctx.fillStyle = warn ? '#fce9e9' : '#e8f4eb';
-      ctx.fillRect(560, 520, 400, 95);
-      ctx.fillStyle = warn ? '#b64646' : '#2f8a59';
+      ctx.fillStyle = warn ? '#ffe6e1' : '#e8f4eb';
+      ctx.fillRect(640, 510, 330, 92);
+      ctx.fillStyle = warn ? '#a63131' : '#2f8a59';
       ctx.font = '800 44px Tajawal';
-      ctx.fillText(preview.badge.textContent, 940, 580);
+      ctx.fillText(preview.badge.textContent, 950, 570);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.font = '700 38px Tajawal';
+      ctx.fillText('للمتابعة اليومية والنصائح: carbmind.app', 970, 1150);
 
       ctx.fillStyle = '#fff';
-      ctx.font = '700 46px Tajawal';
-      ctx.fillText(preview.time.textContent, 960, 700);
-      ctx.fillText(preview.ratio.textContent, 960, 790);
+      ctx.fillRect(770, 920, 210, 210);
+      ctx.drawImage(qrCanvas, 785, 935, 180, 180);
 
-      ctx.fillStyle = '#fff';
-      ctx.fillRect(760, 930, 220, 220);
-      ctx.drawImage(qrCanvas, 780, 950, 180, 180);
-
-      return canvas;
-    }
-
-    function exportCardAsPng() {
-      const canvas = buildCardCanvas();
       const link = document.createElement('a');
       link.download = `carbmind-card-${Date.now()}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
     }
 
-    async function shareCard() {
-      const canvas = buildCardCanvas();
-      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
-      if (!blob) return;
-      const file = new File([blob], 'carbmind-card.png', { type: 'image/png' });
+    Object.values(fields).forEach((input) => input.addEventListener('input', updatePreview));
 
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          title: 'CarbMind',
-          text: 'نرتّب السكري سوا',
-          files: [file]
-        });
-      }
-    }
-
-    const shareBtn = document.getElementById('shareBtn');
-    if (navigator.share) shareBtn.hidden = false;
-
-    document.getElementById('updateBtn').addEventListener('click', saveData);
-    document.getElementById('refreshBtn').addEventListener('click', () => {
-      fields.name.value = 'عزيز';
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      fields.name.value = 'سلمان';
+      fields.age.value = '10';
       fields.glucose.value = '136';
       fields.status.value = 'مستقر';
-      fields.ratio.value = '';
       updatePreview();
-      localStorage.removeItem(STORAGE_KEY);
-      welcomeMessage.textContent = 'هلا والله فييك في كارب مايند';
     });
+
     document.getElementById('exportBtn').addEventListener('click', exportCardAsPng);
-    shareBtn.addEventListener('click', () => shareCard().catch(() => {}));
 
-    [fields.name, fields.glucose, fields.status, fields.ratio].forEach((input) => input.addEventListener('input', () => updatePreview()));
-
-    const insightInput = document.getElementById('insightGlucose');
-    const insightBadge = document.getElementById('insightBadge');
-    const insightResult = document.getElementById('insightResult');
-    const insightGuide = document.getElementById('insightGuide');
-
-    function glucoseInsight() {
-      const value = Number(insightInput.value || 0);
-      let state = {
-        text: 'داخل النطاق',
-        badgeClass: 'b-range',
-        explain: 'القراءة ضمن النطاق المناسب الآن.',
-        guide: 'استمروا على نفس الروتين مع متابعة القراءة القادمة.'
-      };
-
-      if (value < 70) {
-        state = {
-          text: 'منخفض',
-          badgeClass: 'b-low',
-          explain: 'القراءة منخفضة الآن وتحتاج تدخل سريع.',
-          guide: 'نصيحة هادئة: قدّمي سكر سريع وأعيدي القياس بعد 15 دقيقة.'
-        };
-      } else if (value <= 140) {
-        state = {
-          text: 'داخل النطاق',
-          badgeClass: 'b-range',
-          explain: 'القراءة ضمن النطاق المناسب الآن.',
-          guide: 'نصيحة هادئة: ممتاز، استمروا على الخطة الحالية.'
-        };
-      } else if (value <= 180) {
-        state = {
-          text: 'مرتفعة قليلاً',
-          badgeClass: 'b-slight',
-          explain: 'القراءة مرتفعة قليلاً — غالبًا تحتاج متابعة.',
-          guide: 'نصيحة هادئة: يفضل متابعة الجرعة القادمة وقياس جديد خلال ساعتين.'
-        };
-      } else if (value <= 250) {
-        state = {
-          text: 'مرتفعة',
-          badgeClass: 'b-high',
-          explain: 'القراءة مرتفعة وتحتاج انتباه.',
-          guide: 'نصيحة هادئة: تأكدي من خطة التصحيح وشرب الماء والقياس لاحقًا.'
-        };
-      } else {
-        state = {
-          text: 'مرتفعة جدًا',
-          badgeClass: 'b-vhigh',
-          explain: 'القراءة مرتفعة جدًا وتحتاج متابعة أقرب.',
-          guide: 'نصيحة هادئة: ابدؤوا بخطة التصحيح المتفق عليها وتواصلوا طبيًا إذا استمر الارتفاع.'
-        };
-      }
-
-      insightBadge.className = `badge ${state.badgeClass}`;
-      insightBadge.textContent = state.text;
-      insightResult.textContent = state.explain;
-      insightGuide.textContent = state.guide;
-    }
-
-    const ratioCarbs = document.getElementById('ratioCarbs');
-    const ratioUnits = document.getElementById('ratioUnits');
-    const ratioResult = document.getElementById('ratioResult');
-    const ratioExplain = document.getElementById('ratioExplain');
-
-    function ratioCalculator() {
-      const carbs = Number(ratioCarbs.value || 0);
-      const units = Number(ratioUnits.value || 0);
-
-      if (carbs <= 0 || units <= 0) {
-        ratioResult.textContent = 'الرجاء إدخال قيم صحيحة للحساب.';
-        ratioExplain.textContent = 'مثال: 60 جرام كارب مع 6 وحدات = 1 لكل 10.';
-        return;
-      }
-
-      const ratio = (carbs / units).toFixed(1);
-      ratioResult.textContent = `المعامل التقريبي: 1 وحدة لكل ${ratio} جرام كارب`;
-      ratioExplain.textContent = 'هذا رقم إرشادي يساعدكم يوميًا. عدّلوا الخطة دائمًا حسب توجيه الطبيب.';
-    }
-
-    const mealGlucose = document.getElementById('mealGlucose');
-    const mealCarbs = document.getElementById('mealCarbs');
-    const mealRatio = document.getElementById('mealRatio');
-    const mealFactor = document.getElementById('mealFactor');
-    const mealResult = document.getElementById('mealResult');
-    const mealExplain = document.getElementById('mealExplain');
-
-    function mealEstimator() {
-      const current = Number(mealGlucose.value || 0);
-      const carbs = Number(mealCarbs.value || 0);
-      const ratio = Number(mealRatio.value || 0);
-      const factor = Number(mealFactor.value || 0);
-      const target = 120;
-
-      if (ratio <= 0 || factor <= 0 || carbs < 0 || current <= 0) {
-        mealResult.innerHTML = 'أكمل البيانات بشكل صحيح لحساب الجرعة.';
-        mealExplain.textContent = 'تأكد من إدخال القراءة الحالية، كارب الوجبة، معامل الكارب، ومعامل التصحيح.';
-        return;
-      }
-
-      const mealBolus = carbs / ratio;
-      const correction = Math.max(0, (current - target) / factor);
-      const total = mealBolus + correction;
-
-      mealResult.innerHTML = `جرعة الوجبة: ${mealBolus.toFixed(1)} وحدات<br>جرعة تصحيح: ${correction.toFixed(1)} وحدة<br>الإجمالي المقترح: ${total.toFixed(1)} وحدات`;
-      mealExplain.textContent = correction > 0
-        ? 'حسبنا جرعة الوجبة من الكارب، ثم أضفنا تصحيح لأن القراءة أعلى من الهدف (120).'
-        : 'حسبنا جرعة الوجبة فقط لأن القراءة قريبة من الهدف ولا تحتاج تصحيح إضافي.';
-    }
-
-    [insightInput].forEach((el) => el.addEventListener('input', glucoseInsight));
-    [ratioCarbs, ratioUnits].forEach((el) => el.addEventListener('input', ratioCalculator));
-    [mealGlucose, mealCarbs, mealRatio, mealFactor].forEach((el) => el.addEventListener('input', mealEstimator));
-
-    loadData();
-    glucoseInsight();
-    ratioCalculator();
-    mealEstimator();
+    updatePreview();
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
