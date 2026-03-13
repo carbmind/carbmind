@@ -144,12 +144,12 @@ font-weight:700;
 
 function calculate(){
 
-let carbs = document.getElementById("carbs").value;
-let ratio = document.getElementById("ratio").value;
+let carbs = Number(document.getElementById("carbs").value);
+let ratio = Number(document.getElementById("ratio").value);
 
-if(carbs == "" || ratio == ""){
+if(!Number.isFinite(carbs) || !Number.isFinite(ratio) || carbs <= 0 || ratio <= 0){
 
-alert("أدخل القيم أولاً");
+alert("أدخل قيماً صحيحة أكبر من صفر");
 return;
 
 }
