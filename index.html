@@ -10,85 +10,182 @@
 
 <style>
 
-:root{
-
---green-main:#1E8F6B;
---green-dark:#0F6B4E;
---green-soft:#A8D7C4;
-
---bg:#F3F8F6;
---text:#1F2D2A;
-
-}
-
 body{
 
 margin:0;
-font-family: system-ui;
-background: var(--bg);
+font-family:system-ui;
+background:#F3F8F6;
+color:#1F2D2A;
 
+}
+
+.container{
+
+width:90%;
+max-width:1100px;
+margin:auto;
+
+}
+
+header{
+
+padding:25px 0;
 display:flex;
 justify-content:center;
-align-items:center;
 
-height:100vh;
+}
+
+.logo{
+
+background:white;
+padding:10px 20px;
+border-radius:40px;
+box-shadow:0 10px 20px rgba(0,0,0,0.08);
+
+font-weight:700;
+
+}
+
+.hero{
+
+text-align:center;
+padding:40px 0;
+
+}
+
+.hero h1{
+
+font-size:44px;
+margin:0;
+
+color:#0F2A5C;
+
+}
+
+.hero p{
+
+font-size:20px;
+margin-top:15px;
+color:#5F7D76;
+
+}
+
+.main{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+
+margin-top:40px;
 
 }
 
 .card{
 
-background:white;
+background:linear-gradient(135deg,#0F6B4E,#1E8F6B);
 
-width:90%;
-max-width:700px;
+color:white;
 
-padding:40px;
+border-radius:25px;
 
-border-radius:24px;
+padding:30px;
 
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
-
-text-align:center;
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
 
 }
 
-h1{
+.card h2{
 
-color:var(--green-dark);
+margin:0;
 font-size:36px;
 
 }
 
-p{
+.card p{
 
-color:#5F7D76;
+margin-top:10px;
 font-size:18px;
+
+}
+
+.form{
+
+background:white;
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+
+}
+
+input,select{
+
+width:100%;
+padding:14px;
+margin-top:10px;
+
+border-radius:10px;
+border:1px solid #DCEBE4;
 
 }
 
 button{
 
-background:var(--green-main);
+margin-top:15px;
 
-color:white;
+padding:14px;
 
 border:none;
 
-padding:14px 20px;
+border-radius:12px;
 
-border-radius:14px;
+background:#1E8F6B;
+color:white;
 
 font-size:16px;
-
-margin-top:20px;
 
 cursor:pointer;
 
 }
 
-button:hover{
+.tools{
 
-background:var(--green-dark);
+margin-top:50px;
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+
+gap:20px;
+
+}
+
+.tool{
+
+background:white;
+padding:20px;
+
+border-radius:16px;
+
+box-shadow:0 10px 20px rgba(0,0,0,0.08);
+
+text-align:center;
+
+}
+
+@media(max-width:900px){
+
+.main{
+
+grid-template-columns:1fr;
+
+}
+
+.tools{
+
+grid-template-columns:1fr 1fr;
+
+}
 
 }
 
@@ -99,21 +196,125 @@ background:var(--green-dark);
 
 <body>
 
-<div class="card">
+<div class="container">
 
-<h1>CarbMind</h1>
+<header>
+
+<div class="logo">
+
+🌾 CarbMind
+
+</div>
+
+</header>
+
+<section class="hero">
+
+<h1>
+
+نرتّب السكري سوا
+
+</h1>
 
 <p>
 
-واجهة البداية لمشروع كارب مايند
+واجهة هادئة تساعدكم تفهمون القراءة والكارب بطريقة أبسط
 
 </p>
 
+</section>
+
+
+<section class="main">
+
+<div class="card">
+
+<h2>
+
+سلمان
+
+</h2>
+
+<p>
+
+آخر قراءة: 136 mg/dL
+
+</p>
+
+<p>
+
+الحالة: مستقرة
+
+</p>
+
+<p>
+
+معامل الكارب: 1 : 12
+
+</p>
+
+</div>
+
+
+<div class="form">
+
+<label>اسم المريض</label>
+
+<input placeholder="اكتب الاسم">
+
+<label>آخر قراءة سكر</label>
+
+<input placeholder="مثال 140">
+
+<label>الحالة</label>
+
+<select>
+
+<option>مستقر</option>
+<option>مرتفع</option>
+<option>منخفض</option>
+
+</select>
+
 <button>
 
-ابدأ
+تحديث البيانات
 
 </button>
+
+</div>
+
+</section>
+
+
+<section class="tools">
+
+<div class="tool">
+
+📊 السكري وأرقامه
+
+</div>
+
+<div class="tool">
+
+🧮 معامل الكارب
+
+</div>
+
+<div class="tool">
+
+🍽️ حساب كارب الوجبة
+
+</div>
+
+<div class="tool">
+
+📂 ملفات مفيدة
+
+</div>
+
+</section>
+
 
 </div>
 
