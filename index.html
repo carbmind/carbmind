@@ -374,13 +374,19 @@
 
     const qrCanvas = document.getElementById('qrCanvas');
     const qrLink = 'https://carbmind.app';
-    const qr = new QRious({
-      element: qrCanvas,
-      value: qrLink,
-      size: 180,
-      background: 'white',
-      foreground: '#2f2a1f'
-    });
+    let qr = null;
+
+    if (typeof window.QRious === 'function') {
+      qr = new window.QRious({
+        element: qrCanvas,
+        value: qrLink,
+        size: 180,
+        background: 'white',
+        foreground: '#2f2a1f'
+      });
+    } else {
+      console.warn('QRious library is unavailable. QR generation has been skipped.');
+    }
 
     function evaluateState(glucose, statusText) {
       if (statusText === 'يحتاج متابعة') {
