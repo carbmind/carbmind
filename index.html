@@ -374,13 +374,25 @@
 
     const qrCanvas = document.getElementById('qrCanvas');
     const qrLink = 'https://carbmind.app';
-    const qr = new QRious({
-      element: qrCanvas,
-      value: qrLink,
-      size: 180,
-      background: 'white',
-      foreground: '#2f2a1f'
-    });
+
+    if (typeof window.QRious === 'function') {
+      new window.QRious({
+        element: qrCanvas,
+        value: qrLink,
+        size: 180,
+        background: 'white',
+        foreground: '#2f2a1f'
+      });
+    } else {
+      const qrFallbackCtx = qrCanvas.getContext('2d');
+      qrFallbackCtx.fillStyle = '#fff';
+      qrFallbackCtx.fillRect(0, 0, qrCanvas.width, qrCanvas.height);
+      qrFallbackCtx.fillStyle = '#2f2a1f';
+      qrFallbackCtx.font = '700 18px Tajawal';
+      qrFallbackCtx.textAlign = 'center';
+      qrFallbackCtx.fillText('carbmind.app', qrCanvas.width / 2, qrCanvas.height / 2 + 6);
+      console.warn('QRious library is unavailable. Rendered text fallback instead of QR code.');
+    }
 
     function evaluateState(glucose, statusText) {
       if (statusText === 'يحتاج متابعة') {
@@ -474,7 +486,11 @@
     updatePreview();
 
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch((error) => {
+          console.warn('Service worker registration failed:', error);
+        });
+      });
     }
   </script>
 </body>
