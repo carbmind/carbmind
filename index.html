@@ -374,13 +374,24 @@
 
     const qrCanvas = document.getElementById('qrCanvas');
     const qrLink = 'https://carbmind.app';
-    const qr = new QRious({
-      element: qrCanvas,
-      value: qrLink,
-      size: 180,
-      background: 'white',
-      foreground: '#2f2a1f'
-    });
+
+    function initializeQrCode() {
+      if (typeof window.QRious !== 'function') {
+        console.warn('QRious failed to load; continuing without QR rendering.');
+        return false;
+      }
+
+      new window.QRious({
+        element: qrCanvas,
+        value: qrLink,
+        size: 180,
+        background: 'white',
+        foreground: '#2f2a1f'
+      });
+      return true;
+    }
+
+    const isQrReady = initializeQrCode();
 
     function evaluateState(glucose, statusText) {
       if (statusText === 'يحتاج متابعة') {
@@ -451,7 +462,13 @@
 
       ctx.fillStyle = '#fff';
       ctx.fillRect(770, 920, 210, 210);
-      ctx.drawImage(qrCanvas, 785, 935, 180, 180);
+      if (isQrReady) {
+        ctx.drawImage(qrCanvas, 785, 935, 180, 180);
+      } else {
+        ctx.fillStyle = '#5c4a2d';
+        ctx.font = '700 28px Tajawal';
+        ctx.fillText('QR غير متاح حالياً', 960, 1030);
+      }
 
       const link = document.createElement('a');
       link.download = `carbmind-card-${Date.now()}.png`;
